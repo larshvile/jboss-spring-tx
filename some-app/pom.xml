@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>net.hulte.jboss-spring-automation</groupId>
+    <artifactId>jboss-spring-automation-parent</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>some-app</artifactId>
+  <packaging>jar</packaging>
+
+  <properties>
+    <!-- TODO defined in some parent as 'provided'? We also need some MANIFEST.MF entries?? -->
+    <jboss-hibernate-version>4.0.0.Final</jboss-hibernate-version>
+    <spring-version>3.1.0.RELEASE</spring-version>
+  </properties>
+
+  <build> <!-- TODO parent?? -->
+    <finalName>${project.artifactId}.spring</finalName>
+  </build>
+
+  <!-- TODO parent produces META-INF/jboss-spring.xml?? -->
+
+  <dependencies>
+
+    <!-- jboss-stuff -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${jboss-hibernate-version}</version>
+    </dependency>
+
+    <!-- spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+        <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+  </dependencies>
+</project>
+
