@@ -1,0 +1,10 @@
+// add org.jboss.as.jboss-as-jpa-hibernate4:7.0.2.FINAL as a dependency + write the manifest entry
+// TODO the actual 7.0.2.FINAL should be shared somehow..
+
+/*??
+ <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${jboss-hibernate-version}</version>
+    </dependency>
+    */

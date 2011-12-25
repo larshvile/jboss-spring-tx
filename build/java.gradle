@@ -1,0 +1,10 @@
+
+/*
+ * Java plugin configuration
+ */
+apply plugin: 'java'
+sourceCompatibility = 7 // jdk7
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
+
+// TODO eclipse???
+

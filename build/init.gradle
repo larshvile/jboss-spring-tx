@@ -1,0 +1,11 @@
+// symlink to $HOME/.gradle/init.gradle or invoke gradle with 'gradle --init-script $pathTo-init.gradle'
+
+beforeProject { p ->
+    p.repositories {
+        mavenCentral() // TODO required?
+        mavenLocal()   // TODO should be pointing to our internal repo
+    }
+}
+
+// TODO set up $projectRoot based on this file's path??
+
