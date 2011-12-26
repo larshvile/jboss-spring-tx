@@ -1,26 +1,19 @@
+applyHulteScript 'java.gradle'
 
 // TODO what about some shared functions in init.gradle for setting up varius stuff?
   // applySpring(), applyJpa(), applyJms() ?
-// apply from: "$projectRoot/build/java.gradle"
-apply plugin: 'java'
 
-// TODO artifactId
+// TODO apply from "$projectRoot/build/spring.gradle" ?
+// spring-jpa (+ hibernate4 from jboss)
+// spring-jms (+ activemq stuff)
 
 // TODO what about standard java vs standard jee dependencies???
 
 // TODO produce META-INF/jboss-spring.xml somwhere
 
 dependencies {
-    // compile project(':core')
+    // compile 'log4j:log4j:1.2.15'
 }
 
-// TODO apply from "$projectRoot/build/spring.gradle" ?
-// spring-jpa (+ hibernate4 from jboss)
-// spring-jms (+ activemq stuff)
 
-
-/*task(run, dependsOn: 'buildNeeded', type: JavaExec) {
-  main = 'net.hulte.sgfx.Test'
-  classpath = sourceSets.main.runtimeClasspath
-}*/
 

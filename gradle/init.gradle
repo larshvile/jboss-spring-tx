@@ -1,11 +1,37 @@
-// symlink to $HOME/.gradle/init.gradle or invoke gradle with 'gradle --init-script $pathTo-init.gradle'
+// symlink to $HOME/.gradle/init.gradle or invoke 'gradle --init-script $checkoutPath/gradle/init.gradle'
 
-beforeProject { p ->
+/*
+ * Repositories
+ */
+beforeProject{ p ->
     p.repositories {
-        mavenCentral() // TODO required?
-        mavenLocal()   // TODO should be pointing to our internal repo
+        mavenCentral()
     }
 }
 
-// TODO set up $projectRoot based on this file's path??
+/*
+ * Locate this file's parent directory, 'gradle'
+ */
+final File scriptFolder = buildscript.sourceFile.canonicalFile.parentFile
+
+/*
+ * Conventions for loading shared scripts without too much clutter.
+ */
+class HulteScriptConvention {
+  final def project
+  final File scriptFolder;
+
+  HulteScriptConvention(def project, File scriptFolder) {
+    this.project = project
+    this.scriptFolder = scriptFolder
+  }
+
+  def applyHulteScript(String script) {
+    project.apply from: new File(scriptFolder, script)
+  }
+}
+
+beforeProject { p ->
+    p.convention.plugins.hulteScript = new HulteScriptConvention(p, scriptFolder);
+}
 

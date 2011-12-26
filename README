@@ -1,0 +1,12 @@
+Gradle issues:
+---------------------------------------------
+- No way to run 'offline' builds - http://issues.gradle.org/browse/GRADLE-320
+    could possibly be fixed by an env variable that simply disables the remote repository??
+- Update policy for maven SNAPSHOT dependencies. Supposed to work out of the box, but should be tested
+    http://gradle.1045684.n5.nabble.com/Snapshot-dependencies-not-updated-td1433032.html
+    http://issues.gradle.org/browse/GRADLE-629
+- Eclipse projects + WTP, works as expected?
+- Automatic dependency resolution between Jenkins jobs not possible in the current Gradle plugin.
+
+- unit tests, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
+

@@ -8,3 +8,5 @@ sourceCompatibility = 7 // jdk7
 
 // TODO eclipse???
 
+println("java configured...")
+
