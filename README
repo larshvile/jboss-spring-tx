@@ -5,19 +5,18 @@ Gradle issues:
 - Update policy for maven SNAPSHOT dependencies. Supposed to work out of the box, but should be tested
     http://gradle.1045684.n5.nabble.com/Snapshot-dependencies-not-updated-td1433032.html
     http://issues.gradle.org/browse/GRADLE-629
-- Eclipse projects + WTP, works as expected?
 - Automatic dependency resolution between Jenkins jobs not possible in the current Gradle plugin.
+
+- Eclipse projects + WTP, works as expected?
 
 
 TODO
 ---------------------------------------------
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
-
+- [compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
 - eclipse project
+- create the spring3 module, reuse provided-spring.gradle for dependencies???
 
 - unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
-
-- create the spring3 module, reuse provided-spring.gradle for dependencies???
 
 - Autogenerate META-INF/jboss-spring.xml
 <?xml version="1.0" encoding="UTF-8"?>
