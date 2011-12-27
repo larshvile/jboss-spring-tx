@@ -12,9 +12,10 @@ Gradle issues:
 
 TODO
 ---------------------------------------------
+- create the spring3 module, reuse provided-spring.gradle for dependencies???
+- deploy 'component1'
 - [compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
 - eclipse project
-- create the spring3 module, reuse provided-spring.gradle for dependencies???
 
 - unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
 
