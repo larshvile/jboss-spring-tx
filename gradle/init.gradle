@@ -5,6 +5,7 @@
  */
 beforeProject{ p ->
     p.repositories {
+        // mavenRepo name: "jboss-releases", url: "https://repository.jboss.org/nexus/content/repositories/releases"
         mavenCentral()
     }
 }
@@ -27,7 +28,7 @@ class HulteScriptConvention {
   }
 
   def applyHulteScript(String script) {
-    project.apply from: new File(scriptFolder, script)
+    project.apply from: new File(scriptFolder, script + ".gradle")
   }
 }
 

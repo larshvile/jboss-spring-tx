@@ -1,12 +1,28 @@
 
 /*
- * Java plugin configuration
+ * Java compiler configuration
  */
 apply plugin: 'java'
 sourceCompatibility = 7 // jdk7
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+/**
+ * Create a manifest object that can be tweaked by other scripts.
+ */
+javaManifest = manifest {
+}
+jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
+
+jar.doFirst {
+    jar {
+        manifest {
+            from javaManifest
+            if (!jbossDependencies.empty) {
+                attributes Dependencies: jbossDependencies.join(', ')
+            }
+        }
+    }
+}
 
 // TODO eclipse???
-
-println("java configured...")
 
