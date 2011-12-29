@@ -1,0 +1,27 @@
+applyHulteScript "java"
+applyHulteScript "provided-spring"
+// applyHulteScript "provided-jpa"
+// applyHulteScript "provided-jms" spring-jms / activemq stuff?
+
+defaultTasks 'build'
+
+dependencies {
+    // compile 'log4j:log4j:1.2.15'
+}
+
+
+/* TODO
+    - deploy 'component1'
+
+    - Autogenerate META-INF/jboss-spring.xml
+    <?xml version="1.0" encoding="UTF-8"?>
+    <beans default-autowire="no" xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+        <import resource="applicationContext.xml" />
+
+    </beans>
+*/
+

@@ -1,0 +1,5 @@
+subprojects {
+    group = 'net.hulte.apps'
+    version = 'CURRENT-SNAPSHOT'
+}
+
