@@ -1,0 +1,14 @@
+/*
+ * Produces a 'module' in JBoss lingo for the Spring framework.
+ */
+applyHulteScript "jboss-module-support"
+
+dependencies {
+    jboss("$group:spring-dependencies:$version") {
+        exclude module: 'commons-logging'
+    }
+}
+
+moduleName = 'org.springframework'
+moduleDependencies = ['org.apache.commons.logging'] // TODO a lot more..
+

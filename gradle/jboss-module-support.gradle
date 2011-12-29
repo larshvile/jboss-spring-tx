@@ -1,0 +1,73 @@
+/*
+ * Provides a baseline script for creating JBoss modules.
+ */
+defaultTasks 'clean', 'assemble'
+apply plugin: 'base'
+
+// client-provided configuration
+moduleName = name
+moduleDependencies = []
+configurations {
+    jboss // dependency configuration for the module's contents
+}
+
+
+staging = file("$buildDir/staging")
+task createStagingDir(type: Directory) {
+    dir = staging
+}
+
+
+/*
+ * Copies all dependencies into the staging folder.
+ */
+task assembleModuleDependencies(type: Copy, dependsOn: createStagingDir) {
+   from configurations.jboss
+   into staging
+}
+
+
+/*
+ * Writes a JBoss module descriptor into the staging folder.
+ */
+import groovy.xml.*
+task createModuleDescriptor(dependsOn: createStagingDir) << {
+    def encoding = 'UTF-8'
+
+    def builder = new StreamingMarkupBuilder()
+    builder.encoding = encoding
+
+    def descriptor = builder.bind {
+        mkp.xmlDeclaration()
+        module(xmlns: 'urn:jboss:module:1.0', name: moduleName) {
+            delegate.resources() {
+                configurations.jboss.files
+                    .collect { it.name }
+                    .sort()
+                    .each { 'resource-root'(path: it) }
+            }
+            delegate.dependencies() {
+                moduleDependencies.each { module(name: it) }
+            }
+        }
+    }
+
+    new File(staging, "module.xml").withWriter(encoding) {
+        XmlUtil.serialize(descriptor, it)
+    }
+}
+
+
+/*
+ * Packages the module so it can be unpacked directly in JBoss' module directory.
+ */
+task(distribution, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor]) {
+    from staging
+    compression = Compression.GZIP
+    rename {
+        moduleName.replaceAll('\\.', '/') + "/main/$it"
+    }
+}
+
+assemble.dependsOn distribution
+

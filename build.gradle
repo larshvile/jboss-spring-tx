@@ -1,5 +1,0 @@
-subprojects {
-    group = 'net.hulte'
-    version = 'CURRENT-SNAPSHOT'
-}
-

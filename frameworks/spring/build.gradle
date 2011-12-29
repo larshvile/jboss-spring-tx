@@ -1,0 +1,5 @@
+subprojects {
+    group = "net.hulte.spring"
+    version = "CURRENT-SNAPSHOT"
+}
+

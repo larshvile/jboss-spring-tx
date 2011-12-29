@@ -3,6 +3,9 @@ applyHulteScript "provided-spring"
 // applyHulteScript "provided-jpa"
 // applyHulteScript "provided-jms" spring-jms / activemq stuff?
 
+group = 'net.hulte'
+version = 'CURRENT-SNAPSHOT'
+
 // TODO what about standard java vs standard jee dependencies???
 
 dependencies {
