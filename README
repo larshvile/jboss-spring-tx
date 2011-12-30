@@ -52,6 +52,9 @@ TODO
     backend = .ear + libs & .spring ?
     web = .war / .ear + .war?
 
+- flat file repo, every project should push its artifacs to it..
+    artifacts {} + uploadArtifacts stuff plz..
+
 - TODO create a script that doez it all..
     - download gradle
     - set up the init.gradle stuff (or just invoke with --init-script)
