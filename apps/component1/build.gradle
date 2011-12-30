@@ -1,8 +1,4 @@
 
-dependencies {
-    // compile 'log4j:log4j:1.2.15'
-}
-
 
 /* TODO
     - deploy 'component1'
