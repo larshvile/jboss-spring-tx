@@ -52,3 +52,8 @@ TODO
     backend = .ear + libs & .spring ?
     web = .war / .ear + .war?
 
+- TODO create a script that doez it all..
+    - download gradle
+    - set up the init.gradle stuff (or just invoke with --init-script)
+    - start jboss with all modules plz..
+
