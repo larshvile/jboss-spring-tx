@@ -1,0 +1,5 @@
+subprojects {
+    group = "net.hulte.infrastructure.jboss"
+    version = "CURRENT-SNAPSHOT"
+}
+

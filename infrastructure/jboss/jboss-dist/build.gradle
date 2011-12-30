@@ -1,0 +1,26 @@
+/*
+ * Creates an installer for the JBoss distribution.
+ */
+applyHulteScript "versions"
+apply plugin: 'base'
+defaultTasks 'clean', 'assemble'
+
+dependencies {
+    archives "org.jboss.as:jboss-as-dist:$jbossVersion@tar.gz"
+}
+
+
+/*
+ * Downloads the jboss dist.
+ */
+task downloadDist(type: Copy) {
+   from configurations.archives
+   into new File(buildDir, distsDirName)
+}
+
+
+// TODO config-tweaking etc etc..
+
+
+assemble.dependsOn downloadDist
+
