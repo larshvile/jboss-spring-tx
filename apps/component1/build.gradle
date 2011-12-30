@@ -1,9 +1,3 @@
-applyHulteScript "java"
-applyHulteScript "provided-spring"
-// applyHulteScript "provided-jpa"
-// applyHulteScript "provided-jms" spring-jms / activemq stuff?
-
-defaultTasks 'build'
 
 dependencies {
     // compile 'log4j:log4j:1.2.15'

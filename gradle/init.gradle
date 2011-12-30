@@ -34,6 +34,10 @@ class HulteScriptConvention {
   }
 
   def applyHulteScript(String script) {
+    applyHulteScript(script, project)
+  }
+
+  def applyHulteScript(String script, def project) {
     project.apply from: new File(scriptFolder, script + ".gradle")
   }
 }

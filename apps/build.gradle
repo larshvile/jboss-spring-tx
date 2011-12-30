@@ -1,4 +1,11 @@
 subprojects {
+    applyHulteScript("java", delegate)
+    applyHulteScript("provided-spring", delegate)
+    // applyHulteScript "provided-jpa"
+    // applyHulteScript "provided-jms" spring-jms / activemq stuff?
+
+    defaultTasks 'build'
+
     group = 'net.hulte.apps'
     version = 'CURRENT-SNAPSHOT'
 }
