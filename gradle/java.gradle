@@ -7,6 +7,8 @@ sourceCompatibility = 7 // jdk7
 
 // TODO create artifacts without '-$version' by default plz
 
+// TODO a custom 'provided' scope, http://gradle.1045684.n5.nabble.com/providedCompile-for-Java-JAR-td3328327.html
+
 // TODO set version to 'CURRENT-SNAPSHOT' by default
 
 // TODO eclipse???
