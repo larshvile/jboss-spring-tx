@@ -6,5 +6,5 @@ dependencies {
     compile 'net.hulte.spring:spring-dependencies:CURRENT-SNAPSHOT'
 }
 
-jbossDependencies << 'org.springframework'
+jbossDependencies << 'org.springframework.spring'
 

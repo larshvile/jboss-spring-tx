@@ -1,0 +1,41 @@
+/*
+ * Creates an installer for snowdrop, the Spring deployer.
+ */
+applyHulteScript "versions"
+apply plugin: 'base'
+defaultTasks 'clean', 'assemble'
+
+snowdropVersion = '2.0.1.Final'
+
+dependencies {
+    archives "org.jboss.snowdrop:snowdrop-subsystem-as7:$snowdropVersion@zip"
+}
+
+
+staging = file("$buildDir/staging")
+task createStagingDir(type: Directory) {
+    dir = staging
+}
+
+
+task downloadDist(type: Copy) {
+   from configurations.archives
+   into staging.parentFile
+}
+
+
+task explodeDist(type: Copy, dependsOn: [createStagingDir, downloadDist]) {
+    from zipTree(new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip"))
+    into staging
+}
+
+/*
+    TODO
+        - change module.xml, remove "slot=snowdrop"
+        
+        The final step in the installation is to change $JBOSS_HOME/standalone/configuration/standalone.xml by including <extension module="org.jboss.snowdrop"/> inside the <extensions> element, as well as including <subsystem xmlns="urn:jboss:domain:snowdrop:1.0"/> inside the <profile> element.
+
+*/
+
+assemble.dependsOn explodeDist
+

@@ -9,9 +9,9 @@ sourceCompatibility = 7 // jdk7
 /**
  * Create a manifest object that can be tweaked by other scripts.
  */
-javaManifest = manifest {
+javaManifest = manifest { // TODO is this really necessary? Can't jar { manifest {} } be tweaked in different places anyway???
 }
-jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
+jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7 // TODO is it possible to move this over to jboss-spring-deployment??
 
 jar.doFirst {
     jar {

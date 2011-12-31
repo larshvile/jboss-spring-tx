@@ -6,7 +6,7 @@
 beforeProject { p ->
     p.repositories {
         mavenLocal()
-        // mavenRepo name: "jboss-releases", url: "https://repository.jboss.org/nexus/content/repositories/releases"
+        mavenRepo name: "jboss-releases", url: "https://repository.jboss.org/nexus/content/repositories/releases"
         mavenCentral()
     }
 }

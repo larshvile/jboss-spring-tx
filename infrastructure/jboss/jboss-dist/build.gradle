@@ -21,6 +21,7 @@ task downloadDist(type: Copy) {
 
 // TODO config-tweaking etc etc..
 
+// TODO embed the spring-deployer including config right here, unless its standalone.xml config can be scripted...
 
 assemble.dependsOn downloadDist
 
