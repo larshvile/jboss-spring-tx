@@ -9,6 +9,6 @@ dependencies {
     }
 }
 
-moduleName = 'org.springframework'
+moduleName = 'org.springframework.spring'
 moduleDependencies = ['org.apache.commons.logging'] // TODO a lot more..
 
