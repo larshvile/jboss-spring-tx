@@ -1,4 +1,3 @@
-
 /*
  * Java compiler configuration
  */
@@ -6,23 +5,9 @@ apply plugin: 'java'
 sourceCompatibility = 7 // jdk7
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
-/**
- * Create a manifest object that can be tweaked by other scripts.
- */
-javaManifest = manifest { // TODO is this really necessary? Can't jar { manifest {} } be tweaked in different places anyway???
-}
-jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7 // TODO is it possible to move this over to jboss-spring-deployment??
+// TODO create artifacts without '-$version' by default plz
 
-jar.doFirst {
-    jar {
-        manifest {
-            from javaManifest
-            if (!jbossDependencies.empty) {
-                attributes Dependencies: jbossDependencies.join(', ')
-            }
-        }
-    }
-}
+// TODO set version to 'CURRENT-SNAPSHOT' by default
 
 // TODO eclipse???
 

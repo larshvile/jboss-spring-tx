@@ -1,5 +1,6 @@
 /*
  * Produces a pom containing all the dependencies for the Spring framework.
+ * TODO most of this should be extracted to a helper script.. gradle/maven-meta-support.gradle ?
  */
 apply plugin: 'java'
 apply plugin: 'maven'

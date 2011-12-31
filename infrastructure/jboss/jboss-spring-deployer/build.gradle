@@ -1,8 +1,9 @@
 /*
  * Creates an installer for snowdrop, the Spring deployer.
  */
-applyHulteScript "versions"
 apply plugin: 'base'
+applyHulteScript "versions"
+
 defaultTasks 'clean', 'assemble'
 
 snowdropVersion = '2.0.1.Final'

@@ -1,4 +1,8 @@
+/*
+ * Creates a dependency to the Spring framework.
+ */
 applyHulteScript "versions"
+applyHulteScript "container/jboss"
 
 // TODO if 'war' use the 'providedCompile' configuration, for regular java use the custom 'provided'??
 

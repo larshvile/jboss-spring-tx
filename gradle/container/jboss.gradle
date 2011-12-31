@@ -1,0 +1,15 @@
+/*
+ * Provides support for proprietary aspects of JBoss deployments.
+ */
+jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
+
+jar.doFirst { // TODO the 'jar' task may not be present for all archive types (war/ear)
+    jar {
+        manifest {
+            if (!jbossDependencies.empty) {
+                attributes Dependencies: jbossDependencies.join(', ')
+            }
+        }
+    }
+}
+

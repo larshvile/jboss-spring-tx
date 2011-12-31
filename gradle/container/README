@@ -1,0 +1,3 @@
+Provides standard scripts for jee-container related stuff. The idea is to totally hide the fact that we're
+using JBoss as a container from each component.
+

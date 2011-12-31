@@ -1,6 +1,9 @@
 /*
- * Produces jar files that can be deployed directly to JBoss.
+ * Creates a deployable archive for a Spring component. JBoss has support for this through the Snowdrop
+ * extension. An alternative could be to generate WEB-INF/web.xml & package it as a .war.
  */
+applyHulteScript "java"
+
 snowdropFiles = file("$buildDir/snowdrop")
 
 jar {

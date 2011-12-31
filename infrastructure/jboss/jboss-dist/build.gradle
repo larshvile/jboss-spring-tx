@@ -1,8 +1,9 @@
 /*
  * Creates an installer for the JBoss distribution.
  */
-applyHulteScript "versions"
 apply plugin: 'base'
+applyHulteScript "versions"
+
 defaultTasks 'clean', 'assemble'
 
 dependencies {

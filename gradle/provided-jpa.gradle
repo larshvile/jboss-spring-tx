@@ -1,8 +1,0 @@
-applyHulteScript "versions"
-
-dependencies {
-    compile 'org.hibernate:hibernate-entitymanager:' + jbossHibernateVersion
-}
-
-jbossDependencies << 'org.hibernate'
-

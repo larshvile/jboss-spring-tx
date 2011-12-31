@@ -1,8 +1,10 @@
 /*
  * Provides a baseline script for creating JBoss modules.
+ * https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
  */
-defaultTasks 'clean', 'assemble'
 apply plugin: 'base'
+
+defaultTasks 'clean', 'assemble'
 
 // client-provided configuration
 moduleName = name
