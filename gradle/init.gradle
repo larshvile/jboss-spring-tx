@@ -1,9 +1,25 @@
 // symlink to $HOME/.gradle/init.gradle or invoke 'gradle --init-script $checkoutPath/gradle/init.gradle'
 
+
+/**
+ * Invokes a closure against each project after its definition has been loaded, but before it's evaluted.
+ * 'beforeProject' is supposed to do this, but it's in fact invoked after evaluation for some reason.
+ * TODO this may be a Gradle bug?? Or maybe just a misunderstanding of 'evalution'. beforeProject is called
+ * after the scripts have been parsed(evaulated), but prior to any tasks being run..
+ */
+def reallyBeforeProject(def action) {
+    gradle.projectsLoaded {
+        rootProject.allprojects {
+            action(delegate)
+        }
+    }
+}
+
+
 /*
  * Repositories
  */
-beforeProject { p ->
+reallyBeforeProject { p ->
     p.repositories {
         mavenLocal()
         mavenRepo name: "jboss-releases", url: "https://repository.jboss.org/nexus/content/repositories/releases"
@@ -11,38 +27,46 @@ beforeProject { p ->
     }
 }
 
+
 /*
  * Use the good old 'target' directory for build output.
  */
-beforeProject { p -> p.buildDir = new File(p.buildDir.parentFile, 'target') }
+reallyBeforeProject { p ->
+    p.buildDir = new File(p.buildDir.parentFile, 'target')
+}
+
 
 /*
  * Locate this file's parent directory, 'gradle'
  */
 final File scriptFolder = buildscript.sourceFile.canonicalFile.parentFile
 
+
 /*
- * Conventions for loading shared scripts without too much clutter.
+ * Install conventions for loading shared scripts without too much clutter.
  */
 class HulteScriptConvention {
   final def project
   final File scriptFolder;
 
   HulteScriptConvention(def project, File scriptFolder) {
-    this.project = project
+    this.project = project // TODO can this be avoided? Any way of finding the 'current' project dynamically?
     this.scriptFolder = scriptFolder
   }
 
   def applyHulteScript(String script) {
-    applyHulteScript(script, project)
-  }
+    if (!project.hasProperty('appliedHulteScripts')) {
+        project.appliedHulteScripts = []
+    }
 
-  def applyHulteScript(String script, def project) {
-    project.apply from: new File(scriptFolder, script + ".gradle")
+    if (!project.appliedHulteScripts.contains(script)) {
+        project.apply from: new File(scriptFolder, script + ".gradle")
+        project.appliedHulteScripts << script
+    }
   }
 }
 
-beforeProject { p ->
+reallyBeforeProject { p ->
     p.convention.plugins.hulteScript = new HulteScriptConvention(p, scriptFolder);
 }
 

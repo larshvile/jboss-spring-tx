@@ -1,6 +1,6 @@
 subprojects {
-    applyHulteScript("java", delegate)
-    applyHulteScript("provided-spring", delegate)
+    applyHulteScript "java"
+    applyHulteScript "provided-spring"
     // applyHulteScript "provided-jpa"
     // applyHulteScript "provided-jms" spring-jms / activemq stuff?
 

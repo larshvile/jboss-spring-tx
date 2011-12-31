@@ -1,2 +1,4 @@
 applyHulteScript "jboss-spring-deployment"
 
+javaManifest.attributes Something: 'krakra'
+
