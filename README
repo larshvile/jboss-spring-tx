@@ -24,7 +24,6 @@ TODO
 	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:103)
 
 
-- [compileJava, compileTestJava]*.options*.encoding = 'UTF-8' // TODO wtf??
 - eclipse project
 
 - unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura

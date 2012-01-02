@@ -10,5 +10,6 @@ dependencies {
     compile 'net.hulte.spring:spring-dependencies:CURRENT-SNAPSHOT'
 }
 
-jbossDependencies << 'org.springframework.spring'
+// jbossDependencies << 'org.springframework.spring'
+jbossDependencies << 'org.jboss.snowdrop' // TODO correct?, snowdrop seems to export spring.
 

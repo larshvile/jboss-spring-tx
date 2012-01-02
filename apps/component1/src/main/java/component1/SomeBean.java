@@ -9,7 +9,12 @@ public final class SomeBean {
 
     @PostConstruct
     public void init() {
-        System.out.println("I'm alive and compiled as UTF-8.. æøåÆØÅ");
+        System.out.println("I'm alive");
+    }
+
+
+    public String utf8String() {
+        return "æøåÆØÅ";
     }
 }
 

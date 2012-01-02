@@ -10,5 +10,10 @@ dependencies {
 }
 
 moduleName = 'org.springframework.spring'
-moduleDependencies = ['org.apache.commons.logging'] // TODO a lot more..
+moduleDependencies << [
+    'javax.api'
+    'org.apache.commons.logging'
+
+    // TODO what about exports? javax.api / javax.servlet.api / jms etc? or should this by included by each component instead?
+]
 
