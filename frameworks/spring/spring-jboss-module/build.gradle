@@ -1,5 +1,6 @@
 /*
  * Produces a 'module' in JBoss lingo for the Spring framework.
+ * TODO move me to infrastructure/jboss ?
  */
 applyHulteScript "jboss-module-support"
 
@@ -9,11 +10,9 @@ dependencies {
     }
 }
 
-moduleName = 'org.springframework.spring'
-moduleDependencies << [
-    'javax.api'
+moduleName = 'org.springframework'
+moduleDependencies = [
+    'javax.api', // TODO some of these should be added to dependencies.compile[Provided?] by 'container/provided-spring??'
     'org.apache.commons.logging'
-
-    // TODO what about exports? javax.api / javax.servlet.api / jms etc? or should this by included by each component instead?
 ]
 

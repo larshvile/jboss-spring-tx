@@ -1,6 +1,8 @@
 
-dependencies {
+dependencies {  // TODO implicit by container/provided-spring.gradle & java.gradle respectively
     testCompile "org.springframework:spring-test:$springVersion"
     testCompile "junit:junit:4.10"
 }
+
+jbossDependencies << 'org.apache.commons.logging' // TODO implicit, container/provided-spring?
 

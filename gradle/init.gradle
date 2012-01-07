@@ -1,4 +1,4 @@
-// symlink to $HOME/.gradle/init.gradle or invoke 'gradle --init-script $checkoutPath/gradle/init.gradle'
+// symlink into $HOME/.gradle/init.d/ or invoke 'gradle --init-script $checkoutPath/gradle/init.gradle'
 
 
 /**
@@ -68,5 +68,22 @@ class HulteScriptConvention {
 
 reallyBeforeProject { p ->
     p.convention.plugins.hulteScript = new HulteScriptConvention(p, scriptFolder);
+}
+
+
+/*
+ * Install the global repository for binaries.
+ */
+afterProject { p ->
+    if (!p.getTasksByName('uploadArchives', false).empty) {
+        p.uploadArchives {
+            repositories {
+                add flatDir {
+                    name "bin-repo"
+                    dirs new File(scriptFolder.parent, "bin")
+                }
+            }
+        }
+    }
 }
 

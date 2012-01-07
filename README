@@ -14,6 +14,19 @@ Gradle issues:
 TODO
 ---------------------------------------------
 
+
+- TODO create a script that doez it all..
+    - download gradle
+    - set up the init.gradle stuff (or just invoke with --init-script)
+    - start jboss with all modules plz..
+
+    -- TODO spring 3.0.6 works, 3.1.0 is dead meat...
+
+        // TODO kvakk?
+    tasks.withType(Compile) {
+        options.encoding = 'utf-8'
+    }
+
 - deploy component1
     - the spring module is missing some dependencies
     Caused by: java.lang.ClassNotFoundException: org.xml.sax.EntityResolver from [Module "org.springframework.spring:main" from local module loader @15aa5e8 (roots: /home/lars/Desktop/jboss-as-web-7.0.2.Final/modules)]
@@ -64,12 +77,4 @@ TODO
 - deployments w/dependencies
     backend = .ear + libs & .spring ?
     web = .war / .ear + .war?
-
-- flat file repo, every project should push its artifacs to it..
-    artifacts {} + uploadArtifacts stuff plz..
-
-- TODO create a script that doez it all..
-    - download gradle
-    - set up the init.gradle stuff (or just invoke with --init-script)
-    - start jboss with all modules plz..
 

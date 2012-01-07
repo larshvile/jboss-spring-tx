@@ -4,25 +4,47 @@
 apply plugin: 'base'
 applyHulteScript "versions"
 
-defaultTasks 'clean', 'assemble'
+defaultTasks 'clean', 'uploadArchives'
 
 dependencies {
     archives "org.jboss.as:jboss-as-dist:$jbossVersion@tar.gz"
 }
 
 
-/*
- * Downloads the jboss dist.
- */
+staging = file("$buildDir/staging")
+
+
 task downloadDist(type: Copy) {
    from configurations.archives
-   into new File(buildDir, distsDirName)
+   into staging.parentFile
+}
+
+
+task explodeDist(type: Copy, dependsOn: [downloadDist]) {
+    from tarTree(resources.gzip(new File(buildDir, "jboss-as-dist-${jbossVersion}.tar.gz")))
+    into staging.parentFile
+    doLast {
+        assert new File(buildDir, "jboss-as-$jbossVersion").renameTo(staging)
+    }
 }
 
 
 // TODO config-tweaking etc etc..
 
 // TODO embed the spring-deployer including config right here, unless its standalone.xml config can be scripted...
+    // TODO ditto for spring-jboss-module?
 
-assemble.dependsOn downloadDist
+
+assemble.dependsOn 'dist'
+task dist(type: Tar, dependsOn: explodeDist) {
+    from staging
+    compression = Compression.GZIP
+}
+
+
+artifacts {
+    archives dist
+}
+
+uploadArchives.dependsOn assemble
 

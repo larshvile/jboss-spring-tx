@@ -4,7 +4,7 @@ subprojects {
     // applyHulteScript "provided-jpa"
     // applyHulteScript "provided-jms" spring-jms / activemq stuff?
 
-    defaultTasks 'build'
+    defaultTasks 'clean', 'uploadArchives'
 
     group = 'net.hulte.apps'
     version = 'CURRENT-SNAPSHOT'

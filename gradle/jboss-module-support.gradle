@@ -4,10 +4,11 @@
  */
 apply plugin: 'base'
 
-defaultTasks 'clean', 'assemble'
+defaultTasks 'clean', 'uploadArchives'
 
 // client-provided configuration
 moduleName = name
+moduleSlot = 'main'
 moduleDependencies = []
 configurations {
     jboss // dependency configuration for the module's contents
@@ -41,7 +42,7 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
 
     def descriptor = builder.bind {
         mkp.xmlDeclaration()
-        module(xmlns: 'urn:jboss:module:1.0', name: moduleName) {
+        module(xmlns: 'urn:jboss:module:1.0', name: moduleName, slot: moduleSlot) {
             delegate.resources() {
                 configurations.jboss.files
                     .collect { it.name }
@@ -63,13 +64,19 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
 /*
  * Packages the module so it can be unpacked directly in JBoss' module directory.
  */
-task(distribution, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor]) {
+assemble.dependsOn 'dist'
+task(dist, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor]) {
     from staging
     compression = Compression.GZIP
     rename {
-        moduleName.replaceAll('\\.', '/') + "/main/$it"
+        'modules/' + moduleName.replaceAll('\\.', '/') + "/$moduleSlot/$it"
     }
 }
 
-assemble.dependsOn distribution
+
+artifacts {
+    archives dist
+}
+
+uploadArchives.dependsOn assemble
 

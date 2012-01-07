@@ -1,5 +1,6 @@
 /*
- * Creates a dependency to the Spring framework.
+ * Creates a dependency to the Spring framework. Should emulate what's actually deployed to JBoss,
+ * see 'frameworks/spring/spring-jboss-module'.
  */
 applyHulteScript "versions"
 applyHulteScript "container/jboss"
@@ -9,7 +10,8 @@ applyHulteScript "container/jboss"
 dependencies {
     compile 'net.hulte.spring:spring-dependencies:CURRENT-SNAPSHOT'
 }
+// TODO testing dependencies
 
 // jbossDependencies << 'org.springframework.spring'
-jbossDependencies << 'org.jboss.snowdrop' // TODO correct?, snowdrop seems to export spring.
+jbossDependencies << 'org.jboss.snowdrop' // TODO correct?, snowdrop seems to export spring .. but does it export everything?? org.*??
 

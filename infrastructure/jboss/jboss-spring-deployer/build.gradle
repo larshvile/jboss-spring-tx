@@ -4,7 +4,7 @@
 apply plugin: 'base'
 applyHulteScript "versions"
 
-defaultTasks 'clean', 'assemble'
+defaultTasks 'clean', 'uploadArchives'
 
 snowdropVersion = '2.0.1.Final'
 
@@ -14,6 +14,8 @@ dependencies {
 
 
 staging = file("$buildDir/staging")
+distFile = new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip")
+
 task createStagingDir(type: Directory) {
     dir = staging
 }
@@ -26,17 +28,36 @@ task downloadDist(type: Copy) {
 
 
 task explodeDist(type: Copy, dependsOn: [createStagingDir, downloadDist]) {
-    from zipTree(new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip"))
-    into staging
+    from zipTree(distFile)
+    into new File(staging, "modules")
 }
 
-/*
-    TODO
-        - change module.xml, remove "slot=snowdrop"
-        
-        The final step in the installation is to change $JBOSS_HOME/standalone/configuration/standalone.xml by including <extension module="org.jboss.snowdrop"/> inside the <extensions> element, as well as including <subsystem xmlns="urn:jboss:domain:snowdrop:1.0"/> inside the <profile> element.
 
+task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
+    from zipTree(distFile)
+    include "**/module.xml"
+    into new File(staging, "modules")
+
+    // use our main spring module instead of snowdrop specific stuff
+    filter { l ->
+        l.contains('slot="snowdrop"') ? '        <module name="org.springframework">' : l;
+    }
+}
+
+/* TODO
+The final step in the installation is to change $JBOSS_HOME/standalone/configuration/standalone.xml by including <extension module="org.jboss.snowdrop"/> inside the <extensions> element, as well as including <subsystem xmlns="urn:jboss:domain:snowdrop:1.0"/> inside the <profile> element.
 */
 
-assemble.dependsOn explodeDist
+task dist(type: Tar, dependsOn: updateModuleDescriptor) {
+    from staging
+    compression = Compression.GZIP
+}
+
+
+artifacts {
+    archives dist
+}
+
+assemble.dependsOn dist
+uploadArchives.dependsOn assemble
 
