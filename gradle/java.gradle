@@ -37,3 +37,18 @@ artifacts {
     archives packageSources
 }
 
+
+/**
+ * Checkstyle.
+ */
+apply plugin: 'code-quality'
+checkstyleConfigFileName = file("$buildDirName/checkstyle/checkstyle-config.xml")
+
+checkstyleMain.dependsOn 'getGlobalCheckstyleConfig'
+task getGlobalCheckstyleConfig(type: Copy) {
+    from new File(new File(scriptFolder, "config"), "checkstyle-config.xml")
+    into file("$buildDirName/checkstyle")
+}
+
+task check(overwrite: true, dependsOn: checkstyleMain)
+
