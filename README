@@ -14,6 +14,7 @@ TODO
     - Eclipse projects + WTP, works as expected?
 
     - unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
+
         task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
             from javadoc.destinationDir
             classifier = 'javadoc'
