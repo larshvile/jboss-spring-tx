@@ -1,0 +1,79 @@
+applyHulteScript "java"
+
+
+/*
+ * Checkstyle.
+ */
+apply plugin: 'code-quality'
+checkstyleConfigFileName = file("$buildDirName/checkstyle/checkstyle-config.xml")
+
+checkstyleMain.dependsOn 'getGlobalCheckstyleConfig'
+task getGlobalCheckstyleConfig(type: Copy) {
+    from new File(new File(scriptFolder, "config"), "checkstyle-config.xml")
+    into file("$buildDirName/checkstyle")
+}
+
+
+/*
+ * EMMA - code coverage.
+ */
+configurations {
+    emma
+}
+
+dependencies {
+    emma "emma:emma:$emmaVersion"
+    emma "emma:emma_ant:$emmaVersion"
+}
+
+task emmaCoverage(type: Test) {
+    emmaMetadata="$buildDirName/emma/metadata.emma"
+    emmaClasses="$buildDirName/emma/instr"
+
+    jvmArgs "-Demma.coverage.out.file=$emmaMetadata", "-Demma.coverage.out.merge=true"
+    testReport false
+
+    // run tests on instrumented classes
+    doFirst {
+        ant.taskdef(resource: "emma_ant.properties", classpath: configurations.emma.asPath)
+        ant.path(id: "run.classpath") {
+            pathelement(location:sourceSets.main.output.classesDir.absolutePath)
+        }
+        ant.emma(verbosity: 'info') { // TODO info what?
+            instr(merge: "true", destdir: emmaClasses, instrpathref: "run.classpath", metadatafile: emmaMetadata) {
+                instrpath {
+                    fileset(dir: sourceSets.main.output.classesDir.absolutePath, includes: "*.class")
+                }
+            }
+        }
+        setClasspath(files(emmaClasses) + configurations.emma +  getClasspath())
+    }
+
+    // generate the report
+    doLast {
+        ant.emma(enabled: "true") {
+            report(sourcepath: 'src/main/java') {
+                fileset(dir: "$buildDirName/emma") {
+                    include(name: "*.emma")
+                }
+                html(outfile: "$buildDirName/reports/emma/coverage.html")
+                xml(outfile: "$buildDirName/emma/coverage.xml")
+            }
+        }
+
+        // TODO parse report/data/all/[type=class] etc and fail the build automatically??
+    }
+}
+
+
+/*
+ * Custom 'check' tasks for various reports
+ */
+task check(overwrite: true, dependsOn: [
+    classes,
+    testClasses,
+    checkstyleMain,
+    emmaCoverage,
+    test
+])
+

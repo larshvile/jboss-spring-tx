@@ -1,4 +1,6 @@
 subprojects {
+    applyHulteScript "java-reports"
+
     applyHulteScript "container/spring-deployment" // TODO war's aren't spring-deployments...
     applyHulteScript "container/provided-spring"
 
