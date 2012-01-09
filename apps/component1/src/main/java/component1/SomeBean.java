@@ -12,6 +12,11 @@ public final class SomeBean {
     private final Log logger = LogFactory.getLog(getClass());
 
 
+    public SomeBean() {
+        logger.warn("\nSomeBean-ctor\n");
+    }
+
+
     @PostConstruct // TODO not working in JBoss?? //         <module name="javax.annotation.api"/>????
     public void init() {
         logger.warn("\nI'm alive\n");

@@ -1,0 +1,45 @@
+#!/bin/bash -e
+
+PROJECT=`readlink -f $0`
+PROJECT=`dirname $PROJECT`
+TARGET=/tmp/jboss-spring-tx
+SCRIPTS=$TARGET/hulte-scripts
+VERSION=CURRENT-SNAPSHOT
+
+# (re)create the target folder
+if [ -d $TARGET ]; then
+    rm -r $TARGET
+fi
+mkdir $TARGET
+
+# install JBoss & modules
+echo "installing JBoss & modules"
+tar -C $TARGET -xf $PROJECT/bin/jboss-dist-$VERSION.tgz
+tar -C $TARGET -xf $PROJECT/bin/jboss-spring-deployer-$VERSION.tgz
+tar -C $TARGET -xf $PROJECT/bin/spring-jboss-module-$VERSION.tgz
+
+# set some permissions (TODO no longer required in gradle M8?)
+chmod +x $TARGET/bin/*.sh
+
+# start JBoss in the backrgound
+cd $TARGET
+echo "starting JBoss"
+bin/standalone.sh &
+sleep 3 # TODO please improve me...
+
+# initialize modules
+for script in `ls $SCRIPTS`; do
+    echo "> $script"
+    bin/jboss-admin.sh --connect --file=$SCRIPTS/$script
+done
+
+# deploy the apps
+for app in `ls $PROJECT/bin | grep \\.spring$`; do
+    bin/jboss-admin.sh --connect command="deploy $PROJECT/bin/$app"
+done
+
+# Wait for shutdown by user
+read -p "Press any key to stop JBoss... " -n1 -s
+$TARGET/bin/jboss-admin.sh --connect command=:shutdown
+wait
+

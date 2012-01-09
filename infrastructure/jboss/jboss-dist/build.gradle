@@ -32,9 +32,6 @@ task explodeDist(type: Copy, dependsOn: [downloadDist]) {
 
 // TODO config-tweaking etc etc..
 
-// TODO embed the spring-deployer including config right here, unless its standalone.xml config can be scripted...
-    // TODO ditto for spring-jboss-module?
-
 
 assemble.dependsOn 'dist'
 task dist(type: Tar, dependsOn: explodeDist) {

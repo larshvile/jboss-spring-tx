@@ -11,21 +11,11 @@ Gradle issues:
 
 TODO
 ---------------------------------------------
-    - Eclipse projects + WTP, works as expected?
+ - Eclipse projects + WTP, works as expected?
 
-    - reports etc
-        - findbugs / pmd
+-- TODO spring 3.0.6 works, 3.1.0 is dead meat...
 
-
-
-- TODO create a script that doez it all..
-    - download gradle
-    - set up the init.gradle stuff (or just invoke with --init-script)
-    - start jboss with all modules plz..
-
-    -- TODO spring 3.0.6 works, 3.1.0 is dead meat...
-
-    
+- loads of TODOs in the build scripts...
 
 - deploy component1
     - the spring module is missing some dependencies

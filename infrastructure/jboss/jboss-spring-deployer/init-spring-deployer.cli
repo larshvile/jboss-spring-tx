@@ -1,0 +1,4 @@
+/extension=org.jboss.snowdrop:add
+/subsystem=spring:add
+:reload
+

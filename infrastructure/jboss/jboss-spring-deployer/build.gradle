@@ -44,11 +44,14 @@ task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
     }
 }
 
-/* TODO
-The final step in the installation is to change $JBOSS_HOME/standalone/configuration/standalone.xml by including <extension module="org.jboss.snowdrop"/> inside the <extensions> element, as well as including <subsystem xmlns="urn:jboss:domain:snowdrop:1.0"/> inside the <profile> element.
-*/
 
-task dist(type: Tar, dependsOn: updateModuleDescriptor) {
+task addInitScript(type: Copy, dependsOn: explodeDist) {
+    from file('init-spring-deployer.cli')
+    into new File(staging, "hulte-scripts")
+}
+
+
+task dist(type: Tar, dependsOn: [updateModuleDescriptor, addInitScript]) {
     from staging
     compression = Compression.GZIP
 }
