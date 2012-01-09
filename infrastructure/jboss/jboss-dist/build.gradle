@@ -6,6 +6,7 @@ applyHulteScript "versions"
 
 defaultTasks 'clean', 'uploadArchives'
 
+
 dependencies {
     archives "org.jboss.as:jboss-as-dist:$jbossVersion@tar.gz"
 }

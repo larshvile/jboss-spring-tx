@@ -31,9 +31,13 @@ reallyBeforeProject { p ->
 /*
  * Use the good old 'target' directory for build output.
  */
-reallyBeforeProject { p ->
-    p.buildDir = new File(p.buildDir.parentFile, 'target')
-}
+reallyBeforeProject { it.buildDir = it.file('target') }
+
+
+/**
+ * Define a standard versioning scheme for artifacts under continous development.
+ */
+reallyBeforeProject { it.CURR = 'CURRENT-SNAPSHOT' }
 
 
 /*

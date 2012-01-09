@@ -1,12 +1,9 @@
 subprojects {
-    applyHulteScript "container/spring-deployment"
+    applyHulteScript "container/spring-deployment" // TODO war's aren't spring-deployments...
     applyHulteScript "container/provided-spring"
-    // applyHulteScript "provided-jpa"
-    // applyHulteScript "provided-jms" spring-jms / activemq stuff?
 
-    defaultTasks 'clean', 'uploadArchives'
+    defaultTasks 'clean', 'build', 'uploadArchives'
 
     group = 'net.hulte.apps'
-    version = 'CURRENT-SNAPSHOT'
 }
 

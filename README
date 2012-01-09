@@ -7,12 +7,26 @@ Gradle issues:
     http://issues.gradle.org/browse/GRADLE-629
 - Automatic dependency resolution between Jenkins jobs not possible in the current Gradle plugin.
 
-- Eclipse projects + WTP, works as expected?
-
 - deb installers.. https://github.com/sgo/ubuntu-packager-plugin
 
 TODO
 ---------------------------------------------
+    - Eclipse projects + WTP, works as expected?
+
+    - unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
+        task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
+            from javadoc.destinationDir
+            classifier = 'javadoc'
+        }
+        task packageSources(type: Jar) {
+            from sourceSets.main.allSource
+            classifier = 'sources'
+        }
+        artifacts {
+            archives packageJavadoc
+            archives packageSources
+        }
+
 
 
 - TODO create a script that doez it all..
@@ -22,10 +36,7 @@ TODO
 
     -- TODO spring 3.0.6 works, 3.1.0 is dead meat...
 
-        // TODO kvakk?
-    tasks.withType(Compile) {
-        options.encoding = 'utf-8'
-    }
+    
 
 - deploy component1
     - the spring module is missing some dependencies
@@ -37,21 +48,6 @@ TODO
 	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:103)
 
 
-- eclipse project
-
-- unit tests, javadoc, reports etc.. checkstyle / pmd / findbugs / eclemma|cobertura
-    task packageJavadoc(type: Jar, dependsOn: 'javadoc') {
-        from javadoc.destinationDir
-        classifier = 'javadoc'
-    }
-    task packageSources(type: Jar) {
-        from sourceSets.main.allSource
-        classifier = 'sources'
-    }
-    artifacts {
-        archives packageJavadoc
-        archives packageSources
-    }
 
 - proper snowdrop module w/configuration
 - proper jboss installation w/config

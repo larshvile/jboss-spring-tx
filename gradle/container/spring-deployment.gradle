@@ -13,6 +13,16 @@ jar {
     }
 }
 
+// custom dependency configuration for dependencies provided by JBoss. Emulates 'providedCompile' for regular WARs
+configurations {
+    providedCompile {
+        description = 'dependencies provided by JBoss'
+    }
+    compile {
+        extendsFrom providedCompile
+    }
+}
+
 
 task createSnowdropDir(type: Directory) {
     dir = snowdropFiles
@@ -22,6 +32,7 @@ task createSnowdropDir(type: Directory) {
 /**
  * Generates the snowdrop-specific deployment descriptor, 'jboss-spring.xml'.
  */
+jar.dependsOn 'createDeploymentDescriptor'
 task createDeploymentDescriptor(dependsOn: createSnowdropDir) << {
     def descriptor = 
 
@@ -37,6 +48,4 @@ task createDeploymentDescriptor(dependsOn: createSnowdropDir) << {
         it.write(descriptor)
     }
 }
-
-jar.dependsOn createDeploymentDescriptor
 

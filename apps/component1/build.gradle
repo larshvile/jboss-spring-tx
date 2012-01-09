@@ -1,8 +1,5 @@
+applyHulteScript "eclipse"
 
-dependencies {  // TODO implicit by container/provided-spring.gradle & java.gradle respectively
-    testCompile "org.springframework:spring-test:$springVersion"
-    testCompile "junit:junit:4.10"
-}
-
-jbossDependencies << 'org.apache.commons.logging' // TODO implicit, container/provided-spring?
+// TODO implicit please, or rather by some 'provided/jee-deps' module or something?
+jbossDependencies << 'org.apache.commons.logging'
 

@@ -23,6 +23,6 @@ public final class SillyTest {
     @Test
     public void java_compiler_handles_utf8() {
         assertEquals("æøåÆØÅ", someBean.utf8String());
+        System.err.println(someBean.utf8String());
     }
 }
-

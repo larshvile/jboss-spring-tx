@@ -5,7 +5,7 @@ applyHulteScript "versions"
 applyHulteScript "container/jboss"
 
 dependencies {
-    compile 'org.hibernate:hibernate-entitymanager:' + jbossHibernateVersion // TODO compile is wrong here as well, see provided-spring
+    providedCompile 'org.hibernate:hibernate-entitymanager:' + jbossHibernateVersion
 }
 
 jbossDependencies << 'org.hibernate'

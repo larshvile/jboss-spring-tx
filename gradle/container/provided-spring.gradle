@@ -5,13 +5,10 @@
 applyHulteScript "versions"
 applyHulteScript "container/jboss"
 
-// TODO if 'war' use the 'providedCompile' configuration, for regular java use the custom 'provided'??
-
 dependencies {
-    compile 'net.hulte.spring:spring-dependencies:CURRENT-SNAPSHOT'
+    providedCompile "net.hulte.frameworks.spring:spring-dependencies:$CURR"
+    testCompile "org.springframework:spring-test:$springVersion"
 }
-// TODO testing dependencies
 
-// jbossDependencies << 'org.springframework.spring'
-jbossDependencies << 'org.jboss.snowdrop' // TODO correct?, snowdrop seems to export spring .. but does it export everything?? org.*??
+jbossDependencies << 'org.jboss.snowdrop' // TODO does snowdrop export everything from spring? aopalliance etc etc
 
