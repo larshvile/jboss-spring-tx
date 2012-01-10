@@ -14,7 +14,7 @@ dependencies {
 
 
 staging = file("$buildDir/staging")
-distFile = new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip")
+
 
 task createStagingDir(type: Directory) {
     dir = staging
@@ -28,25 +28,37 @@ task downloadDist(type: Copy) {
 
 
 task explodeDist(type: Copy, dependsOn: [createStagingDir, downloadDist]) {
-    from zipTree(distFile)
+    from zipTree(new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip"))
     into new File(staging, "modules")
 }
 
 
-// TODO temporarily replaced by file swapping the entire file...
-//task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
-//    from zipTree(distFile)
-//    include "**/module.xml"
-//    into new File(staging, "modules")
-//
-//    // use our main spring module instead of snowdrop specific stuff
-//    filter { l ->
-//        l.contains('slot="snowdrop"') ? '        <module name="org.springframework">' : l;
-//    }
-//}
-task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
-    from file('module.xml')
-    into file("$buildDir/staging/modules/org/jboss/snowdrop/main/")
+import groovy.xml.*
+task updateModuleDescriptor(dependsOn: explodeDist) << {
+    def file = file("$buildDir/staging/modules/org/jboss/snowdrop/main/module.xml")
+    def module = new XmlSlurper(false, false).parse(file)
+    def dependencies = module.dependencies
+
+    // remove the existing Spring module
+    def springModule = dependencies.module.find { it.@name == 'org.springframework.spring' }
+    assert springModule.size() == 1
+    springModule.each { it.replaceNode {} }
+
+    // replace with the custom spring module, and full imports/exports (as opposed to META-INF/** & org/**)
+    dependencies.appendNode({
+        delegate.'module'(name:'org.springframework', export:'true') {
+            imports { // import everything including META-INF
+                include(path: '**')
+            }
+            exports { // .. and export it
+                include(path: '**')
+            }
+        }
+    })
+
+    file.withWriter('UTF-8') {
+        XmlUtil.serialize(module, it)
+    }
 }
 
 

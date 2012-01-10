@@ -17,10 +17,9 @@ public final class SomeBean {
     }
 
 
-    @PostConstruct // TODO not working in JBoss?? //         <module name="javax.annotation.api"/>????
+    @PostConstruct
     public void init() {
         logger.warn("\nI'm alive\n");
-        // throw new RuntimeException("kvakkel");
     }
 
 
@@ -28,3 +27,4 @@ public final class SomeBean {
         return "æøåÆØÅ";
     }
 }
+
