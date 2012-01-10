@@ -4,7 +4,7 @@ subprojects {
     applyHulteScript "container/spring-deployment" // TODO war's aren't spring-deployments...
     applyHulteScript "container/provided-spring"
 
-    defaultTasks 'clean', 'build', 'uploadArchives'
+    defaultTasks 'clean', 'uploadArchives'
 
     group = 'net.hulte.apps'
 }

@@ -12,7 +12,8 @@ dependencies {
 
 moduleName = 'org.springframework'
 moduleDependencies = [
-    'javax.api', // TODO some of these should be added to dependencies.compile[Provided?] by 'container/provided-spring??'
+    'javax.api',
+    'javax.annotation.api',
     'org.apache.commons.logging'
 ]
 

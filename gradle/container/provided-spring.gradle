@@ -10,5 +10,6 @@ dependencies {
     testCompile "org.springframework:spring-test:$springVersion"
 }
 
-jbossDependencies << 'org.jboss.snowdrop' // TODO does snowdrop export everything from spring? aopalliance etc etc
+// TODO not actually required at all, implicitly added by the snowdrop deployer
+// jbossDependencies << 'org.jboss.snowdrop' // TODO does snowdrop export everything from spring? aopalliance etc etc
 

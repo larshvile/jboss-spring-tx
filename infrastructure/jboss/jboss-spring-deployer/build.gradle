@@ -33,15 +33,20 @@ task explodeDist(type: Copy, dependsOn: [createStagingDir, downloadDist]) {
 }
 
 
+// TODO temporarily replaced by file swapping the entire file...
+//task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
+//    from zipTree(distFile)
+//    include "**/module.xml"
+//    into new File(staging, "modules")
+//
+//    // use our main spring module instead of snowdrop specific stuff
+//    filter { l ->
+//        l.contains('slot="snowdrop"') ? '        <module name="org.springframework">' : l;
+//    }
+//}
 task updateModuleDescriptor(type: Copy, dependsOn: explodeDist) {
-    from zipTree(distFile)
-    include "**/module.xml"
-    into new File(staging, "modules")
-
-    // use our main spring module instead of snowdrop specific stuff
-    filter { l ->
-        l.contains('slot="snowdrop"') ? '        <module name="org.springframework">' : l;
-    }
+    from file('module.xml')
+    into file("$buildDir/staging/modules/org/jboss/snowdrop/main/")
 }
 
 

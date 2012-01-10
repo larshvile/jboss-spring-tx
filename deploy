@@ -4,7 +4,7 @@ PROJECT=`readlink -f $0`
 PROJECT=`dirname $PROJECT`
 TARGET=/tmp/jboss-spring-tx
 SCRIPTS=$TARGET/hulte-scripts
-VERSION=CURRENT-SNAPSHOT
+CURR=CURRENT-SNAPSHOT
 
 # (re)create the target folder
 if [ -d $TARGET ]; then
@@ -14,9 +14,9 @@ mkdir $TARGET
 
 # install JBoss & modules
 echo "installing JBoss & modules"
-tar -C $TARGET -xf $PROJECT/bin/jboss-dist-$VERSION.tgz
-tar -C $TARGET -xf $PROJECT/bin/jboss-spring-deployer-$VERSION.tgz
-tar -C $TARGET -xf $PROJECT/bin/spring-jboss-module-$VERSION.tgz
+tar -C $TARGET -xf $PROJECT/bin/jboss-dist-$CURR.tgz
+tar -C $TARGET -xf $PROJECT/bin/jboss-spring-deployer-$CURR.tgz
+tar -C $TARGET -xf $PROJECT/bin/spring-jboss-module-$CURR.tgz
 
 # set some permissions (TODO no longer required in gradle M8?)
 chmod +x $TARGET/bin/*.sh
@@ -31,6 +31,7 @@ sleep 3 # TODO please improve me...
 for script in `ls $SCRIPTS`; do
     echo "> $script"
     bin/jboss-admin.sh --connect --file=$SCRIPTS/$script
+    # TODO the scripts that require a :reload, do we have to wait for the reload to finish as well??
 done
 
 # deploy the apps
