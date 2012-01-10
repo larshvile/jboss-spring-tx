@@ -12,8 +12,8 @@ dependencies {
 
 moduleName = 'org.springframework'
 moduleDependencies = [
-    'javax.api',
-    'javax.annotation.api',
+    [name: 'javax.api', export: 'true'],
+    [name: 'javax.annotation.api', export: 'true'],
     'org.apache.commons.logging'
 ]
 
