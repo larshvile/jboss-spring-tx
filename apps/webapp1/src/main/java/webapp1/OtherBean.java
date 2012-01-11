@@ -1,4 +1,4 @@
-package component1;
+package webapp1;
 
 import javax.annotation.PostConstruct;
 
@@ -7,19 +7,14 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-public final class SomeBean {
+public final class OtherBean {
 
     private final Log logger = LogFactory.getLog(getClass());
 
 
     @PostConstruct
     public void init() {
-        logger.warn("I'm alive");
-    }
-
-
-    public String utf8String() {
-        return "æøåÆØÅ";
+        logger.warn("I'm alive as well æøåÆØÅ");
     }
 }
 

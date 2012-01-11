@@ -36,7 +36,7 @@ for script in `ls $SCRIPTS`; do
 done
 
 # deploy the apps
-for app in `ls $PROJECT/bin | grep \\.spring$`; do
+for app in `ls $PROJECT/bin | egrep "\\.spring$|\\.war$"`; do
     bin/jboss-admin.sh --connect command="deploy $PROJECT/bin/$app"
 done
 

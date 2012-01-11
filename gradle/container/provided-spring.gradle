@@ -10,5 +10,20 @@ dependencies {
     testCompile "org.springframework:spring-test:$springVersion"
 }
 
-// jbossDependencies << 'org.springframework' -- implicitly added by snowdrop
+// add the module dependency for webapps only, Snowdrop implicitly adds it on the native deployments
+if (tasks.findByName('war') != null) {
+    jbossDependencies << 'org.springframework'
+    /* TODO needs to specify full imports as well
+    <jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
+        <deployment>
+            <dependencies>
+                <module name="org.springframework" >
+                    <imports>
+                        <include path="**"/>
+                    </imports>
+                </module>
+            </dependencies>
+    </jboss-deployment-structure>
+    */
+}
 

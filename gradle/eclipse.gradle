@@ -1,4 +1,11 @@
-apply plugin: 'eclipse'
+
+if (tasks.findByName('war') != null) {
+    apply plugin: 'eclipse-wtp' // TODO this might not make any sense when using the jboss module system, can't launch from within Eclipse anyways...
+} else if (tasks.findByName('jar') != null) {
+    apply plugin: 'eclipse'
+} else {
+    throw new RuntimeException("initialize either the 'java' or 'war' plugin before the 'eclipse' plugin")
+}
 
 eclipse {
     classpath {

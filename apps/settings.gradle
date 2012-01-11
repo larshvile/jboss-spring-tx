@@ -1,2 +1,2 @@
-include 'component1'
+include 'component1', 'webapp1'
 

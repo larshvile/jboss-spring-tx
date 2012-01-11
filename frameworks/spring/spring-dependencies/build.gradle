@@ -9,9 +9,10 @@ applyHulteScript 'versions'
 defaultTasks 'clean', 'install'
 
 dependencies {
-    ['spring-core', 'spring-context', 'spring-orm'].each {
+    ['spring-core', 'spring-context', 'spring-orm', 'spring-web'].each {
         compile "org.springframework:$it:$springVersion"
     }
+    // TODO serlvet API & all other goodies that is required on the cp?
 }
 
 pomFile = file("$buildDir/pom.xml")

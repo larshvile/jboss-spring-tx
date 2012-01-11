@@ -1,4 +1,11 @@
+applyHulteScript "java"
+applyHulteScript "java-reports"
+
+applyHulteScript "container/spring-deployment" // TODO spring-native-deployment?
+applyHulteScript "container/provided-spring"
+
 applyHulteScript "eclipse"
+
 
 // TODO implicit please, or rather by some 'provided/jee-deps' module or something?
 jbossDependencies << 'org.apache.commons.logging'

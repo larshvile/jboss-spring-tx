@@ -12,13 +12,12 @@ Gradle issues:
 TODO
 ---------------------------------------------
 
- - Eclipse projects + WTP, works as expected?
-
 - loads of TODOs in the build scripts...
 
 
 - proper jboss installation w/config
     - snowdrop should probably be bundled with the dist, since it requires a reload...
+
 
 - jboss has loads of shared libraries as modules.. need to stay in sync with these...
     "hibernate" ->
@@ -37,7 +36,9 @@ TODO
         <module name="org.jboss.logging"/>
         <module name="org.hibernate.envers" services="import" optional = "true"/>
 
+
 - deployments w/dependencies
     backend = .ear + libs & .spring ?
     web = .war / .ear + .war?
+
 

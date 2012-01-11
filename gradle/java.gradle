@@ -1,9 +1,13 @@
 applyHulteScript "versions"
 
+// apply the java plugin, unless the it's a webapp
+if (tasks.findByName('war') == null) {
+    apply plugin: 'java'
+}
+
 /*
  * Java compiler configuration
  */
-apply plugin: 'java'
 sourceCompatibility = 6 // jdk7 // TODO revert me
 sourceEncoding = 'UTF-8'
 tasks.withType(Compile) {
