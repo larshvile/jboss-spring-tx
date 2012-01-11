@@ -24,6 +24,7 @@ chmod +x $TARGET/bin/*.sh
 # start JBoss in the backrgound
 cd $TARGET
 echo "starting JBoss"
+# export JAVA_OPTS="-Xdebug -Xnoagent -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=y"
 bin/standalone.sh &
 sleep 3 # TODO please improve me...
 
