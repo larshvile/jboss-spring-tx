@@ -7,30 +7,22 @@ Gradle issues:
     http://issues.gradle.org/browse/GRADLE-629
 - Automatic dependency resolution between Jenkins jobs not possible in the current Gradle plugin.
 
-- deb installers.. https://github.com/sgo/ubuntu-packager-plugin
+- deb installers?.. https://github.com/sgo/ubuntu-packager-plugin
 
 TODO
 ---------------------------------------------
- - Eclipse projects + WTP, works as expected?
 
 -- TODO spring 3.0.6 works, 3.1.0 is dead meat...
+    - debug please..
+    - https://issues.jboss.org/browse/SNOWDROP-45
+
+ - Eclipse projects + WTP, works as expected?
 
 - loads of TODOs in the build scripts...
 
-- deploy component1
-    - the spring module is missing some dependencies
-    Caused by: java.lang.ClassNotFoundException: org.xml.sax.EntityResolver from [Module "org.springframework.spring:main" from local module loader @15aa5e8 (roots: /home/lars/Desktop/jboss-as-web-7.0.2.Final/modules)]
-	at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:191)
-	at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:361)
-	at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:333)
-	at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:310)
-	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:103)
 
-
-
-- proper snowdrop module w/configuration
 - proper jboss installation w/config
-
+    - snowdrop should probably be bundled with the dist, since it requires a reload...
 
 - jboss has loads of shared libraries as modules.. need to stay in sync with these...
     "hibernate" ->
