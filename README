@@ -12,10 +12,6 @@ Gradle issues:
 TODO
 ---------------------------------------------
 
--- TODO spring 3.0.6 works, 3.1.0 is dead meat...
-    - debug please..
-    - https://issues.jboss.org/browse/SNOWDROP-45
-
  - Eclipse projects + WTP, works as expected?
 
 - loads of TODOs in the build scripts...
