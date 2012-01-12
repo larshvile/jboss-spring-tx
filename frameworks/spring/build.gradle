@@ -1,5 +1,42 @@
-subprojects {
-    group = "net.hulte.frameworks.spring"
-    version = CURR
+/*
+ * Produces a pom containing all the dependencies for the Spring framework.
+ * TODO most of this should be extracted to a helper script.. gradle/maven-meta-support.gradle ?
+ */
+apply plugin: 'java'
+apply plugin: 'maven'
+applyHulteScript 'versions'
+
+defaultTasks 'clean', 'install'
+
+group = "net.hulte.frameworks"
+version = CURR
+
+dependencies {
+    ['spring-core', 'spring-context', 'spring-orm', 'spring-web'].each {
+        compile "org.springframework:$it:$springVersion"
+    }
+    // TODO serlvet API & all other goodies that is required on the cp?
 }
+
+pomFile = file("$buildDir/pom.xml")
+
+// generates a custom pom
+task generatePom << {
+    pom {
+        project {
+            packaging 'pom'
+        }
+    }.writeTo(pomFile)
+}
+
+// installs it using ant directly, the maven plugin is hell-bent on uploading an empty jar, as well as using packaging 'jar'
+task install(overwrite: true, dependsOn: generatePom) << {
+    ant.exec(executable: "mvn", failonerror: true) {
+        arg(value: "install:install-file")
+        arg(value: "-Dfile=$pomFile")
+        arg(value: "-DpomFile=$pomFile")
+    }
+}
+
+// TODO an upload as well??
 

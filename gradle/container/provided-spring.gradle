@@ -6,7 +6,7 @@ applyHulteScript "versions"
 applyHulteScript "container/jboss"
 
 dependencies {
-    providedCompile "net.hulte.frameworks.spring:spring-dependencies:$CURR"
+    providedCompile "net.hulte.frameworks:spring:$CURR"
     testCompile "org.springframework:spring-test:$springVersion"
 }
 

@@ -4,8 +4,6 @@
 apply plugin: 'base'
 applyHulteScript "versions"
 
-defaultTasks 'clean', 'uploadArchives'
-
 snowdropVersion = '2.0.1.Final'
 
 dependencies {

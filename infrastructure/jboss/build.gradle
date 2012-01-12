@@ -1,5 +1,6 @@
 subprojects {
     group = "net.hulte.infrastructure.jboss"
     version = CURR
+    defaultTasks 'clean', 'uploadArchives'
 }
 

@@ -1,2 +1,2 @@
-include 'jboss-dist', 'jboss-spring-deployer'
+include 'jboss-dist', 'jboss-spring-deployer', 'jboss-spring-module'
 
