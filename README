@@ -41,4 +41,5 @@ TODO
     backend = .ear + libs & .spring ?
     web = .war / .ear + .war?
 
+- deployment scripts must be idempotent? -- not really safe or sane to delete/redeploy every time? What about temp data dirs etc?
 

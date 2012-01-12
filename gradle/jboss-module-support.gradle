@@ -50,12 +50,11 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
                     .each { 'resource-root'(path: it) }
             }
             delegate.dependencies() {
-                moduleDependencies.each { d ->
-                    if (d instanceof Map) {
-                        module(name: d['name'], export: d['export'])
-                    } else {
-                        module(name: d)
-                    }
+                moduleDependencies.each { name, props ->
+                    module([
+                        name: name,
+                        export: props['export']
+                    ].findAll { it.value })
                 }
             }
         }

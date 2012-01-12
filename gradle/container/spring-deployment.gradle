@@ -4,12 +4,12 @@
  */
 applyHulteScript "java"
 
-snowdropFiles = file("$buildDir/snowdrop")
+snowdropDeploymentDescriptor = file("$buildDirName/jboss-spring.xml")
 
 jar {
     extension = 'spring'
     metaInf {
-        from snowdropFiles
+        from snowdropDeploymentDescriptor
     }
 }
 
@@ -23,17 +23,12 @@ configurations {
     }
 }
 
-
-task createSnowdropDir(type: Directory) {
-    dir = snowdropFiles
-}
-
-
 /**
- * Generates the snowdrop-specific deployment descriptor, 'jboss-spring.xml'.
+ * Generates the snowdrop-specific deployment descriptor, 'jboss-spring.xml'. Simple spring-xml which by
+ * convention delegates to META-INF/applicationContext.xml.
  */
-jar.dependsOn 'createDeploymentDescriptor'
-task createDeploymentDescriptor(dependsOn: createSnowdropDir) << {
+jar.dependsOn 'createSnowdropDeploymentDescriptor'
+task createSnowdropDeploymentDescriptor() << {
     def descriptor = 
 
 '''<?xml version="1.0" encoding="UTF-8"?>
@@ -44,7 +39,7 @@ task createDeploymentDescriptor(dependsOn: createSnowdropDir) << {
     <import resource="applicationContext.xml" />
 </beans>'''
 
-    new File(snowdropFiles, "jboss-spring.xml").withWriter('UTF-8') {
+    snowdropDeploymentDescriptor.withWriter('UTF-8') {
         it.write(descriptor)
     }
 }

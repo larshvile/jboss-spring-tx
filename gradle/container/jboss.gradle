@@ -1,36 +1,67 @@
 /*
  * Provides support for the proprietary aspects of JBoss deployments.
+ * https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
  */
-jbossDependencies = [] // jboss module dependencies, see https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
+jbossModuleDependencies = []
+jbossDeploymentDescriptor = file("$buildDirName/jboss-deployment-structure.xml")
 
-// TODO no good.. we needs jboss-deployment-structure.xml in WEB-INF or META-INF...
-/*<jboss-deployment-structure xmlns="urn:jboss:deployment-structure:1.0">
-        <deployment>
-            <dependencies>
-                <module name="org.springframework" >
-                    <imports>
-                        <include path="**"/>
-                    </imports>
-                </module>
-            </dependencies>
-    </jboss-deployment-structure>*/
+/*
+ * Generates JBoss' deployment descriptor, jboss-deployment-structure.xml, as desribed in:
+ * https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7#ClassLoadinginAS7-JBossDeploymentStructureFile
+ */
+import groovy.xml.*
+classes.dependsOn('generateJBossDeploymentDescriptor')
+task generateJBossDeploymentDescriptor() << {
+    def encoding = 'UTF-8'
 
-def jarTask = tasks.findByName('war') != null ? tasks.findByName('war') : tasks.findByName('jar')
-jarTask.doFirst {
-    if (!jbossDependencies.empty) {
-        if (tasks.findByName('war') != null) {
-            war {
-                manifest {
-                    attributes Dependencies: jbossDependencies.join(', ')
-                }
-            }
-        } else {
-            jar {
-                manifest {
-                    attributes Dependencies: jbossDependencies.join(', ')
+    def builder = new StreamingMarkupBuilder()
+    builder.encoding = encoding
+
+    def descriptor = builder.bind {
+        mkp.xmlDeclaration()
+        'jboss-deployment-structure'(xmlns: 'urn:jboss:deployment-structure:1.0') {
+            deployment() {
+
+                // module dependencies
+                delegate.'dependencies'() {
+                    jbossModuleDependencies.each { d ->
+                        if (d instanceof Map) {
+                            delegate.'module'(name: d['name']) {
+                                if (d['include']) {
+                                    delegate.'imports'() {
+                                        delegate.'include'(path: d['include']) {}
+                                    }
+                                }
+                            }
+                        } else {
+                            delegate.'module'(name: d) {}
+                        }
+                    }
                 }
             }
         }
     }
+
+    jbossDeploymentDescriptor.withWriter(encoding) {
+        XmlUtil.serialize(descriptor, it)
+    }
+}
+
+/*
+ * Embeds the descriptor within WEB-INF of the war.
+ */
+if (tasks.findByName('war')) {
+    war {
+        webInf {
+            from jbossDeploymentDescriptor
+        }
+    }
+}
+
+/*
+ * .. or within META-INF of regular jars.
+ */
+else {
+    metaInf << jbossDeploymentDescriptor
 }
 

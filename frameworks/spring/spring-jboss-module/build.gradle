@@ -1,5 +1,5 @@
 /*
- * Produces a 'module' in JBoss lingo for the Spring framework.
+ * Produces a JBoss module for the Spring framework.
  * TODO move me to infrastructure/jboss ?
  */
 applyHulteScript "jboss-module-support"
@@ -12,7 +12,8 @@ dependencies {
 
 moduleName = 'org.springframework'
 moduleDependencies = [
-    [name: 'javaee.api', export: 'true'],
-    'org.apache.commons.logging'
+    'javaee.api':                   [export: true],
+    'org.apache.commons.logging':   [],
+    'org.jboss.vfs':                []
 ]
 

@@ -7,5 +7,5 @@ applyHulteScript "eclipse"
 
 
 // TODO implicit please, or rather by some 'provided/jee-deps' module or something? probably replaced by log4j?
-jbossDependencies << 'org.apache.commons.logging'
+jbossModuleDependencies << 'org.apache.commons.logging'
 
