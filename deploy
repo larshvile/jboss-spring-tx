@@ -14,9 +14,9 @@ mkdir $TARGET
 
 # install JBoss & modules
 echo "installing JBoss & modules"
-tar -C $TARGET -xf $PROJECT/bin/jboss-dist-$CURR.tgz
-tar -C $TARGET -xf $PROJECT/bin/jboss-spring-deployer-$CURR.tgz
-tar -C $TARGET -xf $PROJECT/bin/jboss-spring-module-$CURR.tgz
+for module in `ls $PROJECT/bin | egrep "\\.tgz$"`; do
+    tar -C $TARGET -xf $PROJECT/bin/$module
+done
 
 # set some permissions (TODO no longer required in gradle M8?)
 chmod +x $TARGET/bin/*.sh
