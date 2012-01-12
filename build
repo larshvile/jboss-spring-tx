@@ -1,0 +1,16 @@
+#!/bin/bash -e
+
+PROJECT=`readlink -f $0`
+PROJECT=`dirname $PROJECT`
+
+# clean the bin folder
+if [ -d $PROJECT/bin ]; then
+    rm -r $PROJECT/bin
+fi
+
+# rebuild everything
+set -x
+gradle -p $PROJECT/frameworks/spring
+gradle -p $PROJECT/apps clean uploadArchives
+gradle -p $PROJECT/infrastructure/jboss clean uploadArchives
+
