@@ -1,7 +1,7 @@
 applyHulteScript "java"
 applyHulteScript "java-reports"
 
-applyHulteScript "container/spring-deployment" // TODO spring-native-deployment?
+applyHulteScript "container/spring-jar-deployment"
 applyHulteScript "container/provided-spring"
 
 applyHulteScript "eclipse"
