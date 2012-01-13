@@ -6,32 +6,34 @@ apply plugin: 'base'
 
 defaultTasks 'clean', 'uploadArchives'
 
-// client-provided configuration
-moduleName = name
-moduleSlot = 'main'
-moduleDependencies = []
-configurations {
-    jboss // dependency configuration for the module's contents
-}
-
-
-staging = file("$buildDir/staging")
-task createStagingDir(type: Directory) {
-    dir = staging
-}
-
+// verify that the moduleName/slot has been configured, need these to generate some folders
+assert hasProperty('moduleName')
+assert hasProperty('moduleSlot')
 
 /*
- * Copies all dependencies into the staging folder.
+ * Custom dependency configurations.
  */
-task assembleModuleDependencies(type: Copy, dependsOn: createStagingDir) {
-   from configurations.jboss
-   into staging
+configurations {
+    jbossModule // dependency configuration for the module's contents
+    jbossScript // .. and for init scripts that should be invoked after the module has been added
 }
 
+File moduleStagingDir = file("$buildDirName/staging/modules/"
+            + moduleName.replaceAll('\\.', '/')
+            + "/$moduleSlot")
+
+
+task createStagingDir(type: Directory) {
+    dir = moduleStagingDir
+}
+
+task assembleModuleDependencies(type: Copy, dependsOn: createStagingDir) {
+    from configurations.jbossModule
+    into moduleStagingDir
+}
 
 /*
- * Writes a JBoss module descriptor into the staging folder.
+ * Generates the JBoss module descriptor.
  */
 import groovy.xml.*
 task createModuleDescriptor(dependsOn: createStagingDir) << {
@@ -44,7 +46,7 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
         mkp.xmlDeclaration()
         module(xmlns: 'urn:jboss:module:1.0', name: moduleName, slot: moduleSlot) {
             delegate.resources() {
-                configurations.jboss.files
+                configurations.jbossModule.files
                     .collect { it.name }
                     .sort()
                     .each { 'resource-root'(path: it) }
@@ -60,24 +62,28 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
         }
     }
 
-    new File(staging, "module.xml").withWriter(encoding) {
+    new File(moduleStagingDir, "module.xml").withWriter(encoding) {
         XmlUtil.serialize(descriptor, it)
     }
 }
 
+task copyScripts(dependsOn: createStagingDir) << {
+    if (configurations.jbossScript.files.empty) {
+        return
+    }
 
-/*
- * Packages the module so it can be unpacked directly in JBoss' module directory.
- */
-assemble.dependsOn 'dist'
-task(dist, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor]) {
-    from staging
-    compression = Compression.GZIP
-    rename {
-        'modules/' + moduleName.replaceAll('\\.', '/') + "/$moduleSlot/$it"
+    copy {
+        from configurations.jbossScript.files
+        into file("$buildDirName/staging/hulte-scripts/$moduleName")
     }
 }
 
+
+assemble.dependsOn 'dist'
+task(dist, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor, copyScripts]) {
+    from file("$buildDirName/staging")
+    compression = Compression.GZIP
+}
 
 artifacts {
     archives dist

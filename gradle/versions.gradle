@@ -3,6 +3,7 @@
  */
 def versions = [
     "spring": "3.0.6.RELEASE",
+    "mysqlConnector": "5.1.18",
 
     // components bundles with jboss, see https://repository.jboss.org/nexus/content/repositories/releases/org/jboss/as/jboss-as-jpa-parent/${jbossVersion} for details
     "jboss": "7.0.2.Final",

@@ -1,0 +1,18 @@
+/*
+ * Produces a JBoss module for the MySQL JDBC driver.
+ */
+moduleName = 'com.mysql'
+moduleSlot = 'main'
+
+applyHulteScript "jboss-module-support"
+applyHulteScript "versions"
+
+dependencies {
+    jbossModule "mysql:mysql-connector-java:$mysqlConnectorVersion"
+    jbossScript files(file('scripts').listFiles())
+}
+
+moduleDependencies = [
+    'javax.api': []
+]
+

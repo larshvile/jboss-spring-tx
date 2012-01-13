@@ -1,15 +1,16 @@
 /*
  * Produces a JBoss module for the Spring framework.
  */
+moduleName = 'org.springframework'
+moduleSlot = 'main'
+
 applyHulteScript "jboss-module-support"
 
 dependencies {
-    jboss("net.hulte.frameworks:spring:$CURR") {
+    jbossModule("net.hulte.frameworks:spring:$CURR") {
         exclude module: 'commons-logging'
     }
 }
-
-moduleName = 'org.springframework'
 
 moduleDependencies = [
     'javaee.api':                   [export: true],

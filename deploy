@@ -29,9 +29,9 @@ bin/standalone.sh &
 sleep 3 # TODO please improve me...
 
 # initialize modules
-for script in `ls $SCRIPTS`; do
+for script in `ls $SCRIPTS/*/*.cli`; do
     echo "> $script"
-    bin/jboss-admin.sh --connect --file=$SCRIPTS/$script
+    bin/jboss-admin.sh --connect --file=$script
     # TODO the scripts that require a :reload, do we have to wait for the reload to finish as well??
 done
 

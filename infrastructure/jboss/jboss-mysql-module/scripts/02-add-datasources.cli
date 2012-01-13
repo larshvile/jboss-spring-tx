@@ -1,0 +1,6 @@
+# TODO this stuff be extracted to some form of environment specific module/package, embedded just for testing purposes...
+
+data-source add --jndi-name=java:jboss/datasources/Component1DS --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --pool-name=Component1DSPool --max-pool-size=5
+
+data-source add --jndi-name=java:jboss/datasources/Webapp1DS --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --pool-name=Webapp1DSPool --max-pool-size=5
+

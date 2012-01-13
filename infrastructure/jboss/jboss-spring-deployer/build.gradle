@@ -61,8 +61,8 @@ task updateModuleDescriptor(dependsOn: explodeDist) << {
 
 
 task addInitScript(type: Copy, dependsOn: explodeDist) {
-    from file('init-spring-deployer.cli')
-    into new File(staging, "hulte-scripts")
+    from file('init.cli')
+    into file("$buildDirName/staging/hulte-scripts/org.jboss.snowdrop")
 }
 
 
