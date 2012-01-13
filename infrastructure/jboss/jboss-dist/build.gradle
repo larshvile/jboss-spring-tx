@@ -18,7 +18,6 @@ task downloadDist(type: Copy) {
    into staging.parentFile
 }
 
-
 task explodeDist(type: Copy, dependsOn: [downloadDist]) {
     from tarTree(resources.gzip(new File(buildDir, "jboss-as-dist-${jbossVersion}.tar.gz")))
     into staging.parentFile
@@ -27,12 +26,27 @@ task explodeDist(type: Copy, dependsOn: [downloadDist]) {
     }
 }
 
+task trimDist(dependsOn: explodeDist) << {
 
-// TODO config-tweaking etc etc..
+    // remove unnecessary top-level folders
+    ['appclient', 'docs', 'domain', 'bundles'].each {
+        delete file("$buildDirName/staging/$it")
+    }
+
+    // remove unsupported/unnecessary modules
+    ['org/hibernate/envers'].each {
+        delete file("$buildDirName/staging/modules/$it")
+    }
+}
+
+task copyConfiguration(type: Copy, dependsOn: trimDist) {
+    from file('standalone.xml')
+    into file("$buildDirName/staging/standalone/configuration")
+}
 
 
 assemble.dependsOn 'dist'
-task dist(type: Tar, dependsOn: explodeDist) {
+task dist(type: Tar, dependsOn: copyConfiguration) {
     from staging
     compression = Compression.GZIP
 }

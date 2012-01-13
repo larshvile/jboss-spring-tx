@@ -1,0 +1,7 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="webapp1" transaction-type="RESOURCE_LOCAL">
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>webapp1.domain.Message</class>
+    </persistence-unit>
+</persistence>
+

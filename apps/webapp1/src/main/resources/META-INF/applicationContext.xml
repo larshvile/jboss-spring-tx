@@ -1,12 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans default-autowire="no" xmlns="http://www.springframework.org/schema/beans"
+    xmlns:p="http://www.springframework.org/schema/p"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jee="http://www.springframework.org/schema/jee"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <context:annotation-config />
     <context:component-scan base-package="webapp1" />
 
+    <!-- persistence TODO move to a shared library -->
+        <!-- TODO based on profile or something -->
+    <jee:jndi-lookup id="dataSource" jndi-name="jboss/datasources/Webapp1"/>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+        p:persistenceXmlLocation="classpath*:META-INF/jpa-persistence.xml"
+        p:dataSource-ref="dataSource"
+        p:persistenceUnitName="webapp1"> <!-- TODO dataSource not required? 'component1' can be inferred from context -->
+        <!-- <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" /> TODO hibernate3 specific stuff...
+        </property> -->
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
+                p:database="MYSQL"
+                p:showSql="true" />
+        </property> <!-- TODO showSql doesn't really belong here, except for testing?? .. can this be tuned with hibernate's log-config instead? -->
+    </bean>
+
 </beans>
+

@@ -2,6 +2,7 @@ applyHulteScript "java-webapp"
 applyHulteScript "java-reports"
 
 applyHulteScript "container/provided-spring"
+applyHulteScript "container/provided-jpa"
 
 applyHulteScript "eclipse"
 

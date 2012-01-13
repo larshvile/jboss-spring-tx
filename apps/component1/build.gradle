@@ -1,10 +1,11 @@
 applyHulteScript "java"
+applyHulteScript "eclipse"
 applyHulteScript "java-reports"
 
 applyHulteScript "container/spring-jar-deployment"
-applyHulteScript "container/provided-spring"
 
-applyHulteScript "eclipse"
+applyHulteScript "container/provided-spring"
+applyHulteScript "container/provided-jpa" // TODO requires spring 3.1 to work..
 
 
 // TODO implicit please, or rather by some 'provided/jee-deps' module or something?

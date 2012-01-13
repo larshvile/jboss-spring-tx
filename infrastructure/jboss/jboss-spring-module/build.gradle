@@ -13,8 +13,12 @@ dependencies {
 }
 
 moduleDependencies = [
-    'javaee.api':                   [export: true],
-    'org.apache.commons.logging':   [],
-    'org.jboss.vfs':                []
+    'javaee.api':    [export: true],
+    'org.hibernate': [], // TODO no longer a 'pure' spring bundle?? maybe it would be easier to have a 'fat' jee-libraries module? .. how does optional="true" work?
+
+    'org.apache.commons.logging': [],
+
+    // jboss internals
+    'org.jboss.vfs': []
 ]
 

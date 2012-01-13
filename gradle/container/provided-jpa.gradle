@@ -1,12 +1,13 @@
 /*
  * Creates a dependency to JPA.
  */
+// TODO kind of useless since the spring package actually _must_ include this (at least the jbossModuleDependencies part)
 applyHulteScript "versions"
 applyHulteScript "container/jboss"
 
 dependencies {
-    providedCompile 'org.hibernate:hibernate-entitymanager:' + jbossHibernateVersion
+    providedCompile "org.hibernate:hibernate-entitymanager:$jbossHibernateVersion"
 }
 
-jbossDependencies << 'org.hibernate'
+// jbossModuleDependencies << 'org.hibernate'
 
