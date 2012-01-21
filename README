@@ -45,3 +45,5 @@ TODO
 
 - jboss-admin.sh doesn't return error codes?
 
+- classcycle reports, gradle/gradle/classcycle.gradle
+
