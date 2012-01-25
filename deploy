@@ -18,9 +18,6 @@ for module in `ls $PROJECT/bin | egrep "\\.tgz$"`; do
     tar -C $TARGET -xf $PROJECT/bin/$module
 done
 
-# set some permissions (TODO no longer required in gradle M8?)
-chmod +x $TARGET/bin/*.sh
-
 # start JBoss in the backrgound
 cd $TARGET
 echo "starting JBoss"
