@@ -19,7 +19,7 @@ def reallyBeforeProject(def action) {
 /*
  * Repositories
  */
-reallyBeforeProject { p -> // TODO regular beforeProject is probably ok
+beforeProject { p ->
     p.repositories {
         mavenRepo name: "jboss-releases", url: "https://repository.jboss.org/nexus/content/repositories/releases"
         mavenCentral()
@@ -54,7 +54,7 @@ class HulteScriptConvention {
   final File scriptFolder;
 
   HulteScriptConvention(def project, File scriptFolder) {
-    this.project = project // TODO can this be avoided? Any way of finding the 'current' project dynamically?
+    this.project = project
     this.scriptFolder = scriptFolder
   }
 

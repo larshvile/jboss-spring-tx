@@ -36,7 +36,7 @@ task emmaCoverage(type: Test) {
         ant.path(id: "run.classpath") {
             pathelement(location:sourceSets.main.output.classesDir.absolutePath)
         }
-        ant.emma(verbosity: 'info') { // TODO info what?
+        ant.emma(verbosity: 'info') {
             instr(merge: "true", destdir: emmaClasses, instrpathref: "run.classpath", metadatafile: emmaMetadata) {
                 instrpath {
                     fileset(dir: sourceSets.main.output.classesDir.absolutePath, includes: "*.class")

@@ -14,10 +14,11 @@ TODO
 
 - loads of TODOs in the build scripts...
 
-
 - proper jboss installation w/config
     - snowdrop should probably be bundled with the dist, since it requires a reload...
 
+- spring/hibernate dependencies...
+    'org.hibernate': [], // TODO no longer a 'pure' spring bundle?? maybe it would be easier to have a 'fat' jee-libraries module? .. how does optional="true" work?
 
 - jboss has loads of shared libraries as modules.. need to stay in sync with these...
     "hibernate" ->
@@ -46,4 +47,8 @@ TODO
 - jboss-admin.sh doesn't return error codes?
 
 - classcycle reports, gradle/gradle/classcycle.gradle
+
+- codenarc kicks ass as well
+
+- findbugs/pmd etc have been included as standard plugins..
 
