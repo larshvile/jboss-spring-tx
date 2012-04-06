@@ -1,5 +1,19 @@
 // symlink into $HOME/.gradle/init.d/ or invoke 'gradle --init-script $checkoutPath/gradle/init.gradle'
 
+/*
+ * Locate this file's parent directory, 'gradle'
+ */
+final File scriptFolder = buildscript.sourceFile.canonicalFile.parentFile
+
+
+/*
+ * Disable this init script for unrelated projects..
+ */
+if (!startParameter.currentDir.canonicalPath.startsWith(scriptFolder.parent)) {
+    return
+}
+println "enabling hulte init-script"
+
 
 /**
  * Invokes a closure against each project after its definition has been loaded, but before it's evaluted.
@@ -38,12 +52,6 @@ reallyBeforeProject { it.buildDir = it.file('target') }
  * Define a standard versioning scheme for artifacts under continous development.
  */
 reallyBeforeProject { it.CURR = 'CURRENT-SNAPSHOT' }
-
-
-/*
- * Locate this file's parent directory, 'gradle'
- */
-final File scriptFolder = buildscript.sourceFile.canonicalFile.parentFile
 
 
 /*
