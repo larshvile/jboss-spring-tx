@@ -2,16 +2,15 @@
  * Central location for versions of all shared dependencies.
  */
 def versions = [
-    "spring": "3.1.0.RELEASE",
-    "mysqlConnector": "5.1.18",
+    "spring": "3.1.1.RELEASE",
+    "mysqlConnector": "5.1.19",
 
     // components bundles with jboss, see https://repository.jboss.org/nexus/content/repositories/releases/org/jboss/as/jboss-as-parent/${jbossVersion} for details
-    "jboss": "7.1.0.CR1b",
-    "jbossHibernate": "4.0.0.Final",
+    "jboss": "7.1.1.Final",
+    "jbossHibernate": "4.0.1.Final",
 
     // test stuff
-    "junit": "4.10",
-    "emma": "2.1.5320"
+    "junit": "4.10"
 ]
 
 versions.each() { k, v -> 

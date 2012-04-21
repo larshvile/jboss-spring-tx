@@ -1,8 +1,9 @@
 # TODO this stuff be extracted to some form of environment specific module/package, embedded just for testing purposes...
+# TODO, --name in the ds-config, what is it for??
 
-data-source add --jndi-name=java:jboss/datasources/Component1 --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --max-pool-size=5
+data-source add --name=Component1 --jndi-name=java:jboss/datasources/Component1 --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --max-pool-size=5
 
-data-source add --jndi-name=java:jboss/datasources/Webapp1 --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --max-pool-size=5
+data-source add --name=Webapp1 --jndi-name=java:jboss/datasources/Webapp1 --driver-name=mysql --connection-url=jdbc:mysql://localhost/jbosstest --new-connection-sql="select 1" --check-valid-connection-sql="select 1" --user-name=appuser --password=dev --query-timeout=120 --spy --max-pool-size=5
 
 # TODO, smoke-testing of datasources?? /subsystem=datasources/data-source=java\:jboss\/datasources\/Webapp1:test-connection-in-pool
 

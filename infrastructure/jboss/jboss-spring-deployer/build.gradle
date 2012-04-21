@@ -4,7 +4,7 @@
 apply plugin: 'base'
 applyHulteScript "versions"
 
-def snowdropVersion = '2.0.1.Final'
+def snowdropVersion = '2.0.3.Final'
 
 dependencies {
     archives "org.jboss.snowdrop:snowdrop-subsystem-as7:$snowdropVersion@zip"
@@ -39,7 +39,7 @@ task updateModuleDescriptor(dependsOn: explodeDist) << {
 
     // replace with the custom spring module, and full imports/exports (as opposed to META-INF/** & org/**)
     dependencies.appendNode({
-        delegate.'module'(name:'org.springframework', export:'true') {
+        delegate.'module'(name:'org.springframework') {
             imports { // import everything including META-INF
                 include(path: '**')
             }

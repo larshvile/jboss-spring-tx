@@ -28,17 +28,17 @@ sleep 5 # TODO please improve me...
 # initialize modules
 for script in `ls $SCRIPTS/*/*.cli`; do
     echo "> $script"
-    bin/jboss-admin.sh --connect --file=$script
+    bin/jboss-cli.sh --connect --file=$script
     # TODO the scripts that require a :reload, do we have to wait for the reload to finish as well??
 done
 
 # deploy the apps
 for app in `ls $PROJECT/bin | egrep "\\.spring$|\\.war$"`; do
-    bin/jboss-admin.sh --connect command="deploy $PROJECT/bin/$app"
+    bin/jboss-cli.sh --connect command="deploy $PROJECT/bin/$app"
 done
 
 # Wait for shutdown by user
 read -p "Press any key to stop JBoss... " -n1 -s
-$TARGET/bin/jboss-admin.sh --connect command=:shutdown
+$TARGET/bin/jboss-cli.sh --connect command=:shutdown
 wait
 
