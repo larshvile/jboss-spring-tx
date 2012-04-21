@@ -1,8 +1,10 @@
 /*
  * Produces a JBoss module for the MySQL JDBC driver.
  */
-moduleName = 'com.mysql'
-moduleSlot = 'main'
+ext {
+    moduleName = 'com.mysql'
+    moduleSlot = 'main'
+}
 
 applyHulteScript "jboss-module-support"
 applyHulteScript "versions"
@@ -12,7 +14,7 @@ dependencies {
     jbossScript files(file('scripts').listFiles())
 }
 
-moduleDependencies = [
+ext.moduleDependencies = [
     'javax.api': []
 ]
 

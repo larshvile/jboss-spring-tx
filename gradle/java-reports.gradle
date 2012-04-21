@@ -2,12 +2,12 @@
  * Checkstyle.
  */
 apply plugin: 'code-quality'
-checkstyleConfigFileName = file("$buildDirName/checkstyle/checkstyle-config.xml")
+checkstyleConfigFileName = file("${buildDir.name}/checkstyle/checkstyle-config.xml")
 
 checkstyleMain.dependsOn 'getGlobalCheckstyleConfig'
 task getGlobalCheckstyleConfig(type: Copy) {
     from new File(new File(scriptFolder, "config"), "checkstyle-config.xml")
-    into file("$buildDirName/checkstyle")
+    into file("${buildDir.name}/checkstyle")
 }
 
 
@@ -24,8 +24,8 @@ dependencies {
 }
 
 task emmaCoverage(type: Test) {
-    emmaMetadata="$buildDirName/emma/metadata.emma"
-    emmaClasses="$buildDirName/emma/instr"
+    def emmaMetadata="${buildDir.name}/emma/metadata.emma"
+    def emmaClasses="${buildDir.name}/emma/instr"
 
     jvmArgs "-Demma.coverage.out.file=$emmaMetadata", "-Demma.coverage.out.merge=true"
     testReport false
@@ -53,8 +53,8 @@ task emmaCoverage(type: Test) {
                 fileset(dir: "$buildDirName/emma") {
                     include(name: "*.emma")
                 }
-                html(outfile: "$buildDirName/reports/emma/coverage.html")
-                xml(outfile: "$buildDirName/emma/coverage.xml")
+                html(outfile: "${buildDir.name}/reports/emma/coverage.html")
+                xml(outfile: "${buildDir.name}/emma/coverage.xml")
             }
         }
 

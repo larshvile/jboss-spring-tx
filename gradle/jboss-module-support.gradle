@@ -7,8 +7,8 @@ apply plugin: 'base'
 defaultTasks 'clean', 'uploadArchives'
 
 // verify that the moduleName/slot has been configured, need these to generate some folders
-assert hasProperty('moduleName')
-assert hasProperty('moduleSlot')
+assert ext.has('moduleName')
+assert ext.has('moduleSlot')
 
 /*
  * Custom dependency configurations.
@@ -18,16 +18,11 @@ configurations {
     jbossScript // .. and for init scripts that should be invoked after the module has been added
 }
 
-File moduleStagingDir = file("$buildDirName/staging/modules/"
+File moduleStagingDir = mkdir("${buildDir.name}/staging/modules/"
             + moduleName.replaceAll('\\.', '/')
             + "/$moduleSlot")
 
-
-task createStagingDir(type: Directory) {
-    dir = moduleStagingDir
-}
-
-task assembleModuleDependencies(type: Copy, dependsOn: createStagingDir) {
+task assembleModuleDependencies(type: Copy) {
     from configurations.jbossModule
     into moduleStagingDir
 }
@@ -36,7 +31,7 @@ task assembleModuleDependencies(type: Copy, dependsOn: createStagingDir) {
  * Generates the JBoss module descriptor.
  */
 import groovy.xml.*
-task createModuleDescriptor(dependsOn: createStagingDir) << {
+task createModuleDescriptor << {
     def encoding = 'UTF-8'
 
     def builder = new StreamingMarkupBuilder()
@@ -67,21 +62,21 @@ task createModuleDescriptor(dependsOn: createStagingDir) << {
     }
 }
 
-task copyScripts(dependsOn: createStagingDir) << {
+task copyScripts << {
     if (configurations.jbossScript.files.empty) {
         return
     }
 
     copy {
         from configurations.jbossScript.files
-        into file("$buildDirName/staging/hulte-scripts/$moduleName")
+        into file("${buildDir.name}/staging/hulte-scripts/$moduleName")
     }
 }
 
 
 assemble.dependsOn 'dist'
 task(dist, type: Tar, dependsOn: [assembleModuleDependencies, createModuleDescriptor, copyScripts]) {
-    from file("$buildDirName/staging")
+    from file("${buildDir.name}/staging")
     compression = Compression.GZIP
 }
 

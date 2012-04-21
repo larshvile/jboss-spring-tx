@@ -10,7 +10,7 @@ dependencies {
 }
 
 
-staging = file("$buildDir/staging")
+def staging = file("$buildDir/staging")
 
 
 task downloadDist(type: Copy) {
@@ -30,18 +30,18 @@ task trimDist(dependsOn: explodeDist) << {
 
     // remove unnecessary top-level folders
     ['appclient', 'docs', 'domain', 'bundles'].each {
-        delete file("$buildDirName/staging/$it")
+        delete file("${buildDir.name}/staging/$it")
     }
 
     // remove unsupported/unnecessary modules
     ['org/hibernate/envers'].each {
-        delete file("$buildDirName/staging/modules/$it")
+        delete file("${buildDir.name}/staging/modules/$it")
     }
 }
 
 task copyConfiguration(type: Copy, dependsOn: trimDist) {
     from file('standalone.xml')
-    into file("$buildDirName/staging/standalone/configuration")
+    into file("${buildDir.name}/staging/standalone/configuration")
 }
 
 

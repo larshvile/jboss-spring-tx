@@ -15,6 +15,6 @@ def versions = [
 ]
 
 versions.each() { k, v -> 
-    project.setProperty(k + "Version", v)
+    project.ext.set(k + "Version", v)
 }
 

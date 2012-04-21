@@ -1,8 +1,10 @@
 /*
  * Produces a JBoss module for the Spring framework.
  */
-moduleName = 'org.springframework'
-moduleSlot = 'main'
+ext {
+    moduleName = 'org.springframework'
+    moduleSlot = 'main'
+}
 
 applyHulteScript "jboss-module-support"
 
@@ -12,7 +14,7 @@ dependencies {
     }
 }
 
-moduleDependencies = [
+ext.moduleDependencies = [
     'javaee.api':    [export: true],
     'org.hibernate': [], // TODO no longer a 'pure' spring bundle?? maybe it would be easier to have a 'fat' jee-libraries module? .. how does optional="true" work?
 

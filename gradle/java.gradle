@@ -8,10 +8,9 @@ if (tasks.findByName('war') == null) {
 /*
  * Java compiler configuration
  */
-sourceCompatibility = 7 // jdk7
-sourceEncoding = 'UTF-8'
+sourceCompatibility = 1.7
 tasks.withType(Compile) {
-    options.encoding = sourceEncoding
+    options.encoding = 'UTF-8'
 }
 
 // standard version scheme for all java components

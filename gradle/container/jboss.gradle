@@ -2,8 +2,10 @@
  * Provides support for the proprietary aspects of JBoss deployments.
  * https://docs.jboss.org/author/display/AS7/Class+Loading+in+AS7
  */
-jbossModuleDependencies = []
-jbossDeploymentDescriptor = file("$buildDirName/jboss-deployment-structure.xml")
+ext {
+    jbossModuleDependencies = []
+    jbossDeploymentDescriptor = file("${buildDir.name}/jboss-deployment-structure.xml")
+}
 
 /*
  * Generates JBoss' deployment descriptor, jboss-deployment-structure.xml, as desribed in:

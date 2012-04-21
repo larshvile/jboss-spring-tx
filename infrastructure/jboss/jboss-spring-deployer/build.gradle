@@ -4,19 +4,14 @@
 apply plugin: 'base'
 applyHulteScript "versions"
 
-snowdropVersion = '2.0.1.Final'
+def snowdropVersion = '2.0.1.Final'
 
 dependencies {
     archives "org.jboss.snowdrop:snowdrop-subsystem-as7:$snowdropVersion@zip"
 }
 
 
-staging = file("$buildDir/staging")
-
-
-task createStagingDir(type: Directory) {
-    dir = staging
-}
+def staging = mkdir("$buildDir/staging")
 
 
 task downloadDist(type: Copy) {
@@ -25,7 +20,7 @@ task downloadDist(type: Copy) {
 }
 
 
-task explodeDist(type: Copy, dependsOn: [createStagingDir, downloadDist]) {
+task explodeDist(type: Copy, dependsOn: downloadDist) {
     from zipTree(new File(buildDir, "snowdrop-subsystem-as7-${snowdropVersion}.zip"))
     into new File(staging, "modules")
 }
@@ -62,7 +57,7 @@ task updateModuleDescriptor(dependsOn: explodeDist) << {
 
 task addInitScript(type: Copy, dependsOn: explodeDist) {
     from file('init.cli')
-    into file("$buildDirName/staging/hulte-scripts/org.jboss.snowdrop")
+    into file("${buildDir.name}/staging/hulte-scripts/org.jboss.snowdrop")
 }
 
 

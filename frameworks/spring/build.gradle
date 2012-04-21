@@ -18,7 +18,7 @@ dependencies {
     // TODO serlvet API & all other goodies that is required on the cp?
 }
 
-pomFile = file("$buildDir/pom.xml")
+def pomFile = file("$buildDir/pom.xml")
 
 // generates a custom pom
 task generatePom << {

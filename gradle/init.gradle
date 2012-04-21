@@ -51,7 +51,7 @@ reallyBeforeProject { it.buildDir = it.file('target') }
 /**
  * Define a standard versioning scheme for artifacts under continous development.
  */
-reallyBeforeProject { it.CURR = 'CURRENT-SNAPSHOT' }
+reallyBeforeProject { it.ext.CURR = 'CURRENT-SNAPSHOT' }
 
 
 /*
@@ -67,13 +67,13 @@ class HulteScriptConvention {
   }
 
   def applyHulteScript(String script) {
-    if (!project.hasProperty('appliedHulteScripts')) {
-        project.appliedHulteScripts = []
+    if (!project.ext.has('appliedHulteScripts')) {
+        project.ext.appliedHulteScripts = []
     }
 
-    if (!project.appliedHulteScripts.contains(script)) {
+    if (!project.ext.appliedHulteScripts.contains(script)) {
         project.apply from: new File(scriptFolder, script + ".gradle")
-        project.appliedHulteScripts << script
+        project.ext.appliedHulteScripts << script
     }
   }
 }
