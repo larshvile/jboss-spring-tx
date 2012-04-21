@@ -1,13 +1,9 @@
 /*
  * Checkstyle.
  */
-apply plugin: 'code-quality'
-checkstyleConfigFileName = file("${buildDir.name}/checkstyle/checkstyle-config.xml")
+apply plugin: 'checkstyle'
 
-checkstyleMain.dependsOn 'getGlobalCheckstyleConfig'
-task getGlobalCheckstyleConfig(type: Copy) {
-    from new File(new File(scriptFolder, "config"), "checkstyle-config.xml")
-    into file("${buildDir.name}/checkstyle")
+checkstyle {
+    configFile = new File(new File(scriptFolder, "config"), "checkstyle-config.xml")
 }
-
 
